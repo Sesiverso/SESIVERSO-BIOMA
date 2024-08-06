@@ -10,14 +10,17 @@ h1 {
     color: #0066cc;
 }
 
-#botoes {
-    margin-top: 20px;
+#palavras {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 18px;
-    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -26,11 +29,23 @@ button {
     transition: background-color 0.3s;
 }
 
-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
+button:hover {
+    background-color: #0056b3;
 }
 
-button:hover:not(:disabled) {
-    background-color: #0056b3;
+button.correct {
+    background-color: #28a745;
+}
+
+button.incorrect {
+    background-color: #dc3545;
+}
+
+#resultado {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+#pergunta {
+    margin-top: 20px;
 }
