@@ -75,4 +75,3 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'fase2/index.html'; // Altere o caminho conforme necessário
     });
 });
-
