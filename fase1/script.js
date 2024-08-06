@@ -1,77 +1,79 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Caça-Palavras carregado.');
+const words = ["PAMPA", "AMAZONIA", "CERRADO", "CAATINGA", "PANTANAL"];
+const correctWord = "PAMPA";
+const gridSize = 10;
+let selectedCells = [];
 
-    const biomas = [
-        ['P', 'A', 'M', 'P', 'A', 'S', 'A', 'R', 'O', 'S', 'O', 'C', 'E', 'R', 'R'],
-        ['S', 'A', 'V', 'A', 'N', 'A', 'S', 'E', 'R', 'R', 'A', 'D', 'O', 'C', 'A'],
-        ['C', 'A', 'A', 'T', 'I', 'N', 'G', 'A', 'A', 'M', 'A', 'Z', 'O', 'N', 'I'],
-        ['C', 'E', 'R', 'R', 'A', 'D', 'O', 'P', 'A', 'M', 'P', 'A', 'S', 'A', 'N'],
-        ['M', 'A', 'T', 'A', 'A', 'T', 'L', 'N', 'I', 'O', 'N', 'I', 'A', 'M', 'A'],
-        ['C', 'A', 'T', 'I', 'N', 'G', 'A', 'S', 'A', 'M', 'A', 'T', 'A', 'A', 'T'],
-        ['C', 'A', 'A', 'T', 'I', 'N', 'G', 'A', 'P', 'M', 'A', 'T', 'A', 'N', 'A'],
-        ['M', 'A', 'Z', 'O', 'N', 'I', 'A', 'S', 'A', 'V', 'A', 'N', 'A', 'S', 'A'],
-        ['S', 'A', 'M', 'A', 'T', 'A', 'A', 'T', 'L', 'N', 'I', 'O', 'N', 'I', 'A'],
-        ['C', 'E', 'R', 'R', 'A', 'D', 'O', 'A', 'T', 'L', 'N', 'I', 'O', 'N', 'I'],
-        ['C', 'E', 'R', 'R', 'A', 'D', 'O', 'A', 'M', 'A', 'T', 'A', 'A', 'T', 'L'],
-        ['M', 'A', 'T', 'A', 'A', 'T', 'L', 'N', 'I', 'O', 'N', 'I', 'A', 'M', 'A'],
-        ['C', 'E', 'R', 'R', 'A', 'D', 'O', 'A', 'M', 'A', 'T', 'A', 'A', 'T', 'L'],
-        ['C', 'E', 'R', 'R', 'A', 'D', 'O', 'C', 'E', 'R', 'R', 'A', 'D', 'O', 'N']
-    ];
+const wordsearch = document.getElementById('wordsearch');
 
-    const respostaCorreta = 'PAMPA';
-
-    function criarTabela() {
-        const tabela = document.querySelector('#caca-palavras table');
-        biomas.forEach((linha, i) => {
-            const tr = document.createElement('tr');
-            linha.forEach((letra, j) => {
-                const td = document.createElement('td');
-                td.textContent = letra;
-                td.dataset.letra = letra;
-                td.dataset.posicao = `${i}-${j}`;
-                td.addEventListener('click', selecionarLetra);
-                tr.appendChild(td);
-            });
-            tabela.appendChild(tr);
-        });
-    }
-
-    let palavraAtual = '';
-    const palavrasEncontradas = [];
-
-    function selecionarLetra(event) {
-        const td = event.target;
-        td.classList.add('encontrado');
-        palavraAtual += td.dataset.letra;
-    }
-
-    function verificarPalavras() {
-        if (palavraAtual === respostaCorreta) {
-            if (!palavrasEncontradas.includes(palavraAtual)) {
-                palavrasEncontradas.push(palavraAtual);
-            }
-            document.getElementById('mensagem').textContent = 'Parabéns! Você encontrou o bioma: PAMPA!';
-            document.getElementById('concluir').style.display = 'block'; // Exibir o botão de concluir
-        } else {
-            document.getElementById('mensagem').textContent = 'Palavra incorreta! Tente novamente.';
+function createGrid() {
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.row = i;
+            cell.dataset.col = j;
+            cell.addEventListener('click', () => selectCell(cell));
+            wordsearch.appendChild(cell);
         }
-        palavraAtual = '';
-        desmarcarLetras();
     }
+    fillGrid();
+}
 
-    function desmarcarLetras() {
-        const tds = document.querySelectorAll('#caca-palavras td');
-        tds.forEach(td => {
-            td.classList.remove('encontrado');
-        });
-    }
-
-    criarTabela();
-
-    document.getElementById('verificar-palavras').addEventListener('click', verificarPalavras);
-    
-    // Lógica para redirecionar para a fase 2
-    document.getElementById('concluir').addEventListener('click', function() {
-        window.location.href = 'fase2/index.html'; // Altere o caminho conforme necessário
+function fillGrid() {
+    // Preencher a grade com letras aleatórias
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    document.querySelectorAll('.cell').forEach(cell => {
+        const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+        cell.textContent = randomLetter;
     });
-});
+
+    // Colocar as palavras na grade
+    words.forEach(word => {
+        placeWordInGrid(word);
+    });
+}
+
+function placeWordInGrid(word) {
+    const direction = Math.random() < 0.5; // true para horizontal, false para vertical
+    const maxStartIndex = gridSize - word.length;
+    let startRow, startCol;
+
+    if (direction) {
+        startRow = Math.floor(Math.random() * gridSize);
+        startCol = Math.floor(Math.random() * (gridSize - word.length));
+        for (let i = 0; i < word.length; i++) {
+            const cell = document.querySelector(`.cell[data-row='${startRow}'][data-col='${startCol + i}']`);
+            cell.textContent = word[i];
+        }
+    } else {
+        startRow = Math.floor(Math.random() * (gridSize - word.length));
+        startCol = Math.floor(Math.random() * gridSize);
+        for (let i = 0; i < word.length; i++) {
+            const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol}']`);
+            cell.textContent = word[i];
+        }
+    }
+}
+
+function selectCell(cell) {
+    if (!cell.classList.contains('selected')) {
+        cell.classList.add('selected');
+        selectedCells.push(cell);
+    } else {
+        cell.classList.remove('selected');
+        selectedCells = selectedCells.filter(c => c !== cell);
+    }
+}
+
+function checkWords() {
+    const selectedWord = selectedCells.map(cell => cell.textContent).join('');
+    const result = document.getElementById('result');
+
+    if (selectedWord === correctWord) {
+        result.textContent = 'Parabéns! Você encontrou o bioma correto: Pampa!';
+    } else {
+        result.textContent = 'Palavra incorreta. Tente novamente.';
+    }
+}
+
+createGrid();
