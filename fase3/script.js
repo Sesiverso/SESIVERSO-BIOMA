@@ -9,14 +9,12 @@ const onDragStart = (source, piece, position, orientation) => {
 
 const makeRandomMove = () => {
     const possibleMoves = game.moves();
-    
+
     if (possibleMoves.length === 0) return;
 
     const randomIndex = Math.floor(Math.random() * possibleMoves.length);
     game.move(possibleMoves[randomIndex]);
     board.position(game.fen());
-
-    window.setTimeout(makeRandomMove, 250);
 };
 
 const onDrop = (source, target) => {
@@ -40,7 +38,8 @@ const cfg = {
     position: 'start',
     onDragStart: onDragStart,
     onDrop: onDrop,
-    onSnapEnd: onSnapEnd
+    onSnapEnd: onSnapEnd,
+    pieceTheme: 'images/{piece}.png' // Custom pieces
 };
 
 board = Chessboard('board', cfg);
