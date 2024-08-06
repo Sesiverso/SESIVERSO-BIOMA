@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Fases sesiverso</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Selecione uma Fase</h1>
+    <div id="botoes">
+        <button id="fase1" onclick="javascript:irParaFase(1)">Fase 1</button>
+        <button id="fase2" disabled>Fase 2</button>
+        <button id="fase3" disabled>Fase 3</button>
+        <button id="fase4" disabled>Fase 4</button>
+    </div>
+
+    <script>
+        function irParaFase(fase) {
+            if (fase === 1) {
+                window.location.href = 'fase1/index.html'; // Altere o caminho se necessário
+            }
+        }
+    </script>
+</body>
+</html>
