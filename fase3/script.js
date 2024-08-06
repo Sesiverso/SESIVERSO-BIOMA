@@ -1,50 +1,73 @@
 let board = null;
 let game = new Chess();
+const boardElement = document.getElementById('board');
 
-const onDragStart = (source, piece, position, orientation) => {
-    if (game.in_checkmate() === true || game.in_draw() === true || piece.search(/^b/) !== -1) {
-        return false;
+const createBoard = () => {
+    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+    for (let i = 7; i >= 0; i--) {
+        for (let j = 0; j < 8; j++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            square.classList.add((i + j) % 2 === 0 ? 'white' : 'black');
+            square.id = letters[j] + numbers[i];
+            boardElement.appendChild(square);
+        }
     }
 };
 
-const makeRandomMove = () => {
-    const possibleMoves = game.moves();
+const updateBoard = () => {
+    const position = game.fen().split(' ')[0];
+    const squares = position.split('/');
+    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
-    if (possibleMoves.length === 0) return;
-
-    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-    game.move(possibleMoves[randomIndex]);
-    board.position(game.fen());
-};
-
-const onDrop = (source, target) => {
-    const move = game.move({
-        from: source,
-        to: target,
-        promotion: 'q' // always promote to a queen for simplicity
+    boardElement.querySelectorAll('.square').forEach(square => {
+        square.innerHTML = '';
     });
 
-    if (move === null) return 'snapback';
+    squares.forEach((row, rowIndex) => {
+        let columnIndex = 0;
 
-    window.setTimeout(makeRandomMove, 250);
+        for (const char of row) {
+            if (!isNaN(char)) {
+                columnIndex += parseInt(char);
+            } else {
+                const piece = document.createElement('div');
+                piece.classList.add('piece');
+                piece.textContent = char;
+                piece.id = letters[columnIndex] + (8 - rowIndex);
+                document.getElementById(letters[columnIndex] + (8 - rowIndex)).appendChild(piece);
+                columnIndex++;
+            }
+        }
+    });
+
+    addPieceEventListeners();
 };
 
-const onSnapEnd = () => {
-    board.position(game.fen());
+const addPieceEventListeners = () => {
+    document.querySelectorAll('.piece').forEach(piece => {
+        piece.addEventListener('click', onPieceClick);
+    });
 };
 
-const cfg = {
-    draggable: true,
-    position: 'start',
-    onDragStart: onDragStart,
-    onDrop: onDrop,
-    onSnapEnd: onSnapEnd,
-    pieceTheme: 'images/{piece}.png' // Custom pieces
+const onPieceClick = event => {
+    const piece = event.target;
+    const pieceSquare = piece.parentElement.id;
+
+    const moves = game.moves({ square: pieceSquare, verbose: true });
+    if (moves.length === 0) return;
+
+    document.querySelectorAll('.highlight').forEach(square => {
+        square.classList.remove('highlight');
+    });
+
+    moves.forEach(move => {
+        const targetSquare = document.getElementById(move.to);
+        targetSquare.classList.add('highlight');
+        targetSquare.addEventListener('click', onSquareClick.bind(null, pieceSquare, move.to), { once: true });
+    });
 };
 
-board = Chessboard('board', cfg);
-
-document.getElementById('reset-button').addEventListener('click', () => {
-    game.reset();
-    board.start();
-});
+const onSquar
