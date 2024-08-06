@@ -10,15 +10,22 @@ h1 {
     color: #0066cc;
 }
 
+#hud {
+    margin: 20px 0;
+}
+
+#status {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
 #board {
     margin: 0 auto;
-    margin-top: 20px;
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
-    margin: 20px 0;
     cursor: pointer;
     border: none;
     border-radius: 5px;
