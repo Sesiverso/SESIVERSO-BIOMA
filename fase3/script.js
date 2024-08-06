@@ -1,71 +1,54 @@
 const quizData = [
     {
-        question: "Sou um bioma onde a vegetação é predominantemente de campos e pradarias, e é conhecido por ser uma região rica em diversidade animal e vegetal. Que bioma sou eu?",
-        options: ["Caatinga", "Pampa", "Mata Atlântica", "Amazônia"],
-        answer: 1 // Índice da resposta correta
+        question: "Sou um bioma onde a vegetação é predominantemente de campos e pradarias, e sou conhecido por ser uma região rica em diversidade animal e vegetal. Que bioma sou eu?",
+        answer: "pampa" // Resposta correta
     },
     {
         question: "Sou um bioma que abriga a maior floresta tropical do mundo, conhecida por sua biodiversidade. Que bioma sou eu?",
-        options: ["Cerrado", "Pampa", "Amazônia", "Mata Atlântica"],
-        answer: 2
+        answer: "amazônia"
     },
     {
         question: "Sou um bioma caracterizado por árvores de folhas largas e clima tropical, com grande quantidade de chuvas. Que bioma sou eu?",
-        options: ["Mata Atlântica", "Deserto", "Cerrado", "Pampa"],
-        answer: 0
+        answer: "mata atlântica"
     },
     {
         question: "Sou um bioma árido, onde as chuvas são escassas e a vegetação é adaptada ao clima seco. Que bioma sou eu?",
-        options: ["Cerrado", "Deserto", "Pampa", "Amazônia"],
-        answer: 1
+        answer: "deserto"
     }
 ];
 
 let currentQuestionIndex = 0;
 
 const questionElement = document.getElementById('question');
-const optionsElement = document.getElementById('options');
+const answerInput = document.getElementById('answer');
+const checkButton = document.getElementById('check-button');
 const nextButton = document.getElementById('next-button');
 const resultElement = document.getElementById('result');
 
 const loadQuestion = () => {
     const currentQuestion = quizData[currentQuestionIndex];
     questionElement.textContent = currentQuestion.question;
-    optionsElement.innerHTML = '';
-
-    currentQuestion.options.forEach((option, index) => {
-        const button = document.createElement('button');
-        button.classList.add('option');
-        button.textContent = option;
-        button.onclick = () => checkAnswer(index);
-        optionsElement.appendChild(button);
-    });
-
+    answerInput.value = ''; // Limpa a caixa de resposta
     nextButton.style.display = 'none'; // Esconde o botão "Próxima Pergunta"
     resultElement.textContent = ''; // Limpa o resultado anterior
 };
 
-const checkAnswer = (selectedOption) => {
+const checkAnswer = () => {
     const currentQuestion = quizData[currentQuestionIndex];
-    const correctAnswer = currentQuestion.answer;
+    const userAnswer = answerInput.value.trim().toLowerCase();
 
-    const optionsButtons = document.querySelectorAll('.option');
-    optionsButtons.forEach((button, index) => {
-        if (index === correctAnswer) {
-            button.classList.add('correct'); // Adiciona classe para resposta correta
-        } else {
-            button.classList.add('incorrect'); // Adiciona classe para resposta incorreta
-        }
-    });
-
-    if (selectedOption === correctAnswer) {
+    if (userAnswer === currentQuestion.answer) {
         resultElement.textContent = 'Você acertou!';
+        resultElement.className = 'correct';
+        nextButton.style.display = 'block'; // Mostra o botão "Próxima Pergunta"
     } else {
-        resultElement.textContent = 'Você errou!';
+        resultElement.textContent = 'Você errou! A resposta correta é: ' + currentQuestion.answer;
+        resultElement.className = 'incorrect';
+        nextButton.style.display = 'none'; // Esconde o botão "Próxima Pergunta"
     }
-
-    nextButton.style.display = 'block'; // Mostra o botão "Próxima Pergunta"
 };
+
+checkButton.onclick = checkAnswer;
 
 nextButton.onclick = () => {
     currentQuestionIndex++;
@@ -73,8 +56,9 @@ nextButton.onclick = () => {
         loadQuestion();
     } else {
         questionElement.textContent = 'Quiz finalizado! Obrigado por jogar!';
-        optionsElement.innerHTML = '';
-        nextButton.style.display = 'none';
+        answerInput.style.display = 'none'; // Esconde a caixa de resposta
+        checkButton.style.display = 'none'; // Esconde o botão "Verificar Resposta"
+        nextButton.style.display = 'none'; // Esconde o botão "Próxima Pergunta"
     }
 };
 
