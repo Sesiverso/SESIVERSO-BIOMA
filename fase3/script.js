@@ -1,127 +1,84 @@
-const cardsArray = [
-    { name: 'onca', img: 'imagens/onca.jpg' },
-    { name: 'boto', img: 'imagens/boto.jpg' },
-    { name: 'arara', img: 'imagens/arara.jpg' },
-    { name: 'preguica', img: 'imagens/preguica.jpg' },
-    { name: 'cobras', img: 'imagens/cobras.jpg' },
-    { name: 'guarana', img: 'imagens/guarana.jpg' }
+const cards = [
+    { name: 'onca', img: 'images/onca.png' },
+    { name: 'tucano', img: 'images/tucano.png' },
+    { name: 'macaco', img: 'images/macaco.png' },
+    { name: 'arara', img: 'images/arara.png' },
+    { name: 'jacare', img: 'images/jacare.png' }
 ];
 
-let gameGrid = cardsArray.concat(cardsArray).sort(() => 0.5 - Math.random());
-let firstGuess = '';
-let secondGuess = '';
-let count = 0;
-let previousTarget = null;
-let delay = 1200;
+let cardArray = [...cards, ...cards];
+cardArray.sort(() => 0.5 - Math.random());
 
-const game = document.getElementById('memory-game');
-const grid = document.createElement('section');
-grid.setAttribute('class', 'grid');
-game.appendChild(grid);
+const grid = document.getElementById('memory-game');
+let firstCard = '';
+let secondCard = '';
+let lockBoard = false;
 
-gameGrid.forEach(item => {
-    const { name, img } = item;
-
-    const card = document.createElement('div');
-    card.classList.add('card');
-    card.dataset.name = name;
-
-    const cardInner = document.createElement('div');
-    cardInner.classList.add('card-inner');
-
-    const front = document.createElement('div');
-    front.classList.add('card-front');
-
-    const back = document.createElement('div');
-    back.classList.add('card-back');
-    back.style.backgroundImage = `url(${img})`;
-
-    grid.appendChild(card);
-    card.appendChild(cardInner);
-    cardInner.appendChild(front);
-    cardInner.appendChild(back);
-});
-
-const match = () => {
-    const selected = document.querySelectorAll('.selected');
-    selected.forEach(card => {
-        card.classList.add('match');
+function createBoard() {
+    cardArray.forEach((card, index) => {
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
+        cardElement.dataset.name = card.name;
+        cardElement.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">?</div>
+                <div class="card-back">
+                    <img src="${card.img}" alt="${card.name}">
+                </div>
+            </div>
+        `;
+        cardElement.addEventListener('click', flipCard);
+        grid.appendChild(cardElement);
     });
-};
+}
 
-const resetGuesses = () => {
-    firstGuess = '';
-    secondGuess = '';
-    count = 0;
-    previousTarget = null;
+function flipCard() {
+    if (lockBoard) return;
+    if (this === firstCard) return;
 
-    const selected = document.querySelectorAll('.selected');
-    selected.forEach(card => {
-        card.classList.remove('selected');
-    });
-};
+    this.classList.add('flipped');
 
-grid.addEventListener('click', event => {
-    const clicked = event.target;
-
-    if (clicked.nodeName === 'SECTION' || clicked === previousTarget || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
+    if (!firstCard) {
+        firstCard = this;
         return;
     }
 
-    if (count < 2) {
-        count++;
-        if (count === 1) {
-            firstGuess = clicked.parentNode.dataset.name;
-            clicked.parentNode.classList.add('selected');
-        } else {
-            secondGuess = clicked.parentNode.dataset.name;
-            clicked.parentNode.classList.add('selected');
-        }
-
-        if (firstGuess && secondGuess) {
-            if (firstGuess === secondGuess) {
-                setTimeout(match, delay);
-            }
-            setTimeout(resetGuesses, delay);
-        }
-        previousTarget = clicked;
-    }
-});
-
-function resetGame() {
-    gameGrid = cardsArray.concat(cardsArray).sort(() => 0.5 - Math.random());
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.classList.remove('match', 'selected');
-        card.querySelector('.card-inner').style.transform = 'rotateY(0)';
-    });
-    setTimeout(() => {
-        grid.innerHTML = '';
-        gameGrid.forEach(item => {
-            const { name, img } = item;
-
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.dataset.name = name;
-
-            const cardInner = document.createElement('div');
-            cardInner.classList.add('card-inner');
-
-            const front = document.createElement('div');
-            front.classList.add('card-front');
-
-            const back = document.createElement('div');
-            back.classList.add('card-back');
-            back.style.backgroundImage = `url(${img})`;
-
-            grid.appendChild(card);
-            card.appendChild(cardInner);
-            cardInner.appendChild(front);
-            cardInner.appendChild(back);
-        });
-    }, 600);
+    secondCard = this;
+    checkForMatch();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    resetGame();
-});
+function checkForMatch() {
+    const isMatch = firstCard.dataset.name === secondCard.dataset.name;
+
+    isMatch ? disableCards() : unflipCards();
+}
+
+function disableCards() {
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+
+    resetBoard();
+}
+
+function unflipCards() {
+    lockBoard = true;
+
+    setTimeout(() => {
+        firstCard.classList.remove('flipped');
+        secondCard.classList.remove('flipped');
+
+        resetBoard();
+    }, 1500);
+}
+
+function resetBoard() {
+    [firstCard, secondCard, lockBoard] = [null, null, false];
+}
+
+function resetGame() {
+    grid.innerHTML = '';
+    cardArray.sort(() => 0.5 - Math.random());
+    createBoard();
+}
+
+createBoard();
