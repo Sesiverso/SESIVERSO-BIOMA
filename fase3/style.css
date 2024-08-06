@@ -1,41 +1,72 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-    text-align: center;
-    padding: 50px;
-}
+let board = null;
+let game = new Chess();
 
-h1 {
-    color: #0066cc;
-}
+const updateStatus = () => {
+    let status = '';
 
-#hud {
-    margin: 20px 0;
-}
+    if (game.in_checkmate()) {
+        status = 'Fim de jogo, xeque-mate!';
+    } else if (game.in_draw()) {
+        status = 'Fim de jogo, empate!';
+    } else {
+        status = `Jogador: ${game.turn() === 'w' ? 'Indígenas' : 'Portugueses'}`;
+        if (game.in_check()) {
+            status += ', xeque!';
+        }
+    }
 
-#status {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
+    document.getElementById('status').textContent = status;
+};
 
-#board {
-    margin: 0 auto;
-}
+const onDragStart = (source, piece, position, orientation) => {
+    if (game.in_checkmate() === true || game.in_draw() === true || piece.search(/^b/) !== -1) {
+        return false;
+    }
+};
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
-    transition: background-color 0.3s;
-}
+const makeRandomMove = () => {
+    const possibleMoves = game.moves();
 
-button:hover {
-    background-color: #0056b3;
-}
+    if (possibleMoves.length === 0) return;
 
+    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
+    game.move(possibleMoves[randomIndex]);
+    board.position(game.fen());
+    updateStatus();
+};
 
+const onDrop = (source, target) => {
+    const move = game.move({
+        from: source,
+        to: target,
+        promotion: 'q' // always promote to a queen for simplicity
+    });
+
+    if (move === null) return 'snapback';
+
+    window.setTimeout(makeRandomMove, 250);
+    updateStatus();
+};
+
+const onSnapEnd = () => {
+    board.position(game.fen());
+};
+
+const cfg = {
+    draggable: true,
+    position: 'start',
+    onDragStart: onDragStart,
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd,
+    pieceTheme: 'images/{piece}.png' // Custom pieces
+};
+
+board = Chessboard('board', cfg);
+
+document.getElementById('reset-button').addEventListener('click', () => {
+    game.reset();
+    board.start();
+    updateStatus();
+});
+
+updateStatus();
