@@ -1,72 +1,69 @@
-let board = null;
-let game = new Chess();
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    text-align: center;
+    padding: 50px;
+}
 
-const updateStatus = () => {
-    let status = '';
+h1 {
+    color: #0066cc;
+}
 
-    if (game.in_checkmate()) {
-        status = 'Fim de jogo, xeque-mate!';
-    } else if (game.in_draw()) {
-        status = 'Fim de jogo, empate!';
-    } else {
-        status = `Jogador: ${game.turn() === 'w' ? 'Indígenas' : 'Portugueses'}`;
-        if (game.in_check()) {
-            status += ', xeque!';
-        }
-    }
+#hud {
+    margin: 20px 0;
+}
 
-    document.getElementById('status').textContent = status;
-};
+#status {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
 
-const onDragStart = (source, piece, position, orientation) => {
-    if (game.in_checkmate() === true || game.in_draw() === true || piece.search(/^b/) !== -1) {
-        return false;
-    }
-};
+#board {
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+    grid-template-rows: repeat(8, 50px);
+    gap: 1px;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: #333;
+}
 
-const makeRandomMove = () => {
-    const possibleMoves = game.moves();
+.square {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
 
-    if (possibleMoves.length === 0) return;
+.square.white {
+    background-color: #fff;
+}
 
-    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-    game.move(possibleMoves[randomIndex]);
-    board.position(game.fen());
-    updateStatus();
-};
+.square.black {
+    background-color: #000;
+    color: #fff;
+}
 
-const onDrop = (source, target) => {
-    const move = game.move({
-        from: source,
-        to: target,
-        promotion: 'q' // always promote to a queen for simplicity
-    });
+.piece {
+    cursor: pointer;
+    user-select: none;
+}
 
-    if (move === null) return 'snapback';
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s;
+}
 
-    window.setTimeout(makeRandomMove, 250);
-    updateStatus();
-};
-
-const onSnapEnd = () => {
-    board.position(game.fen());
-};
-
-const cfg = {
-    draggable: true,
-    position: 'start',
-    onDragStart: onDragStart,
-    onDrop: onDrop,
-    onSnapEnd: onSnapEnd,
-    pieceTheme: 'images/{piece}.png' // Custom pieces
-};
-
-board = Chessboard('board', cfg);
-
-document.getElementById('reset-button').addEventListener('click', () => {
-    game.reset();
-    board.start();
-    updateStatus();
-});
-
-updateStatus();
+button:hover {
+    background-color: #0056b3;
+}
