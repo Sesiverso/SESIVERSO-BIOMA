@@ -10,67 +10,9 @@ h1 {
     color: #0066cc;
 }
 
-#memory-game {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 600px;
+#board {
     margin: 0 auto;
-}
-
-.card {
-    width: 100px;
-    height: 100px;
-    margin: 10px;
-    perspective: 1000px;
-    transition: transform 1s;
-}
-
-.card.flipped .card-inner {
-    transform: rotateY(180deg);
-}
-
-.card-front, .card-back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    border-radius: 10px;
-}
-
-.card-front {
-    background-color: #007bff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: white;
-    transform: rotateY(0deg);
-    transition: transform 1s;
-}
-
-.card-back {
-    transform: rotateY(180deg);
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    transition: transform 1s;
-}
-
-@keyframes shuffle {
-    0% { transform: translateY(0) rotate(0); }
-    20% { transform: translateY(-10px) rotate(10deg); }
-    40% { transform: translateY(10px) rotate(-10deg); }
-    60% { transform: translateY(-10px) rotate(10deg); }
-    80% { transform: translateY(10px) rotate(-10deg); }
-    100% { transform: translateY(0) rotate(0); }
-}
-
-.card.shuffling {
-    animation: shuffle 1s linear;
+    margin-top: 20px;
 }
 
 button {
@@ -88,3 +30,4 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
