@@ -59,4 +59,6 @@ function displayResults(results) {
     resultElement.innerHTML = `Você acertou ${correctAnswers} de ${quizData.length} perguntas.`;
 }
 
+// Chama a função para carregar o quiz quando a página é carregada
 loadQuiz();
+
