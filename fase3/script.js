@@ -1,115 +1,81 @@
-let board = null;
-let game = new Chess();
-const boardElement = document.getElementById('board');
-
-const createBoard = () => {
-    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    const numbers = ['8', '7', '6', '5', '4', '3', '2', '1'];
-
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            const square = document.createElement('div');
-            square.classList.add('square');
-            square.classList.add((i + j) % 2 === 0 ? 'white' : 'black');
-            square.id = letters[j] + numbers[i];
-            square.addEventListener('click', () => onSquareClick(square));
-            boardElement.appendChild(square);
-        }
+const quizData = [
+    {
+        question: "Sou um bioma onde a vegetação é predominantemente de campos e pradarias, e é conhecido por ser uma região rica em diversidade animal e vegetal. Que bioma sou eu?",
+        options: ["Caatinga", "Pampa", "Mata Atlântica", "Amazônia"],
+        answer: 1 // Índice da resposta correta
+    },
+    {
+        question: "Sou um bioma que abriga a maior floresta tropical do mundo, conhecida por sua biodiversidade. Que bioma sou eu?",
+        options: ["Cerrado", "Pampa", "Amazônia", "Mata Atlântica"],
+        answer: 2
+    },
+    {
+        question: "Sou um bioma caracterizado por árvores de folhas largas e clima tropical, com grande quantidade de chuvas. Que bioma sou eu?",
+        options: ["Mata Atlântica", "Deserto", "Cerrado", "Pampa"],
+        answer: 0
+    },
+    {
+        question: "Sou um bioma árido, onde as chuvas são escassas e a vegetação é adaptada ao clima seco. Que bioma sou eu?",
+        options: ["Cerrado", "Deserto", "Pampa", "Amazônia"],
+        answer: 1
     }
-};
+];
 
-const updateBoard = () => {
-    const position = game.fen().split(' ')[0];
-    const squares = position.split('/');
-    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+let currentQuestionIndex = 0;
 
-    boardElement.querySelectorAll('.square').forEach(square => {
-        square.innerHTML = '';
+const questionElement = document.getElementById('question');
+const optionsElement = document.getElementById('options');
+const nextButton = document.getElementById('next-button');
+const resultElement = document.getElementById('result');
+
+const loadQuestion = () => {
+    const currentQuestion = quizData[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsElement.innerHTML = '';
+
+    currentQuestion.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.classList.add('option');
+        button.textContent = option;
+        button.onclick = () => checkAnswer(index);
+        optionsElement.appendChild(button);
     });
 
-    let rowIndex = 0;
-    for (const row of squares) {
-        let columnIndex = 0;
-        for (const char of row) {
-            if (!isNaN(char)) {
-                columnIndex += parseInt(char);
-            } else {
-                const piece = document.createElement('div');
-                piece.classList.add('piece');
-                piece.textContent = char;
-                piece.id = letters[columnIndex] + (8 - rowIndex);
-                document.getElementById(letters[columnIndex] + (8 - rowIndex)).appendChild(piece);
-                columnIndex++;
-            }
+    nextButton.style.display = 'none'; // Esconde o botão "Próxima Pergunta"
+    resultElement.textContent = ''; // Limpa o resultado anterior
+};
+
+const checkAnswer = (selectedOption) => {
+    const currentQuestion = quizData[currentQuestionIndex];
+    const correctAnswer = currentQuestion.answer;
+
+    const optionsButtons = document.querySelectorAll('.option');
+    optionsButtons.forEach((button, index) => {
+        if (index === correctAnswer) {
+            button.classList.add('correct'); // Adiciona classe para resposta correta
+        } else {
+            button.classList.add('incorrect'); // Adiciona classe para resposta incorreta
         }
-        rowIndex++;
-    }
-
-    addPieceEventListeners();
-};
-
-const addPieceEventListeners = () => {
-    document.querySelectorAll('.piece').forEach(piece => {
-        piece.addEventListener('click', onPieceClick);
-    });
-};
-
-const onPieceClick = event => {
-    const piece = event.target;
-    const pieceSquare = piece.parentElement.id;
-
-    const moves = game.moves({ square: pieceSquare, verbose: true });
-    if (moves.length === 0) return;
-
-    document.querySelectorAll('.highlight').forEach(square => {
-        square.classList.remove('highlight');
     });
 
-    moves.forEach(move => {
-        const targetSquare = document.getElementById(move.to);
-        targetSquare.classList.add('highlight');
-        targetSquare.addEventListener('click', () => onMove(pieceSquare, move.to), { once: true });
-    });
-};
-
-const onMove = (from, to) => {
-    game.move({ from, to });
-    updateBoard();
-    setTimeout(makeRandomMove, 250);
-};
-
-const makeRandomMove = () => {
-    const possibleMoves = game.moves();
-    if (possibleMoves.length === 0) return;
-
-    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-    game.move(possibleMoves[randomIndex]);
-    updateBoard();
-};
-
-const updateStatus = () => {
-    let status = '';
-
-    if (game.in_checkmate()) {
-        status = 'Fim de jogo, xeque-mate!';
-    } else if (game.in_draw()) {
-        status = 'Fim de jogo, empate!';
+    if (selectedOption === correctAnswer) {
+        resultElement.textContent = 'Você acertou!';
     } else {
-        status = `Jogador: ${game.turn() === 'w' ? 'Indígenas' : 'Portugueses'}`;
-        if (game.in_check()) {
-            status += ', xeque!';
-        }
+        resultElement.textContent = 'Você errou!';
     }
 
-    document.getElementById('status').textContent = status;
+    nextButton.style.display = 'block'; // Mostra o botão "Próxima Pergunta"
 };
 
-document.getElementById('reset-button').addEventListener('click', () => {
-    game.reset();
-    updateBoard();
-    updateStatus();
-});
+nextButton.onclick = () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+    } else {
+        questionElement.textContent = 'Quiz finalizado! Obrigado por jogar!';
+        optionsElement.innerHTML = '';
+        nextButton.style.display = 'none';
+    }
+};
 
-createBoard();
-updateBoard();
-updateStatus();
+loadQuestion();
