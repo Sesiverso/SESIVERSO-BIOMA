@@ -21,8 +21,6 @@ const quizData = [
     }
 ];
 
-let currentQuestionIndex = 0;
-
 function loadQuiz() {
     const quizContainer = document.getElementById('quiz-container');
     quizContainer.innerHTML = '';
@@ -48,11 +46,7 @@ function submitAnswers() {
     const results = [];
     quizData.forEach((quiz, index) => {
         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-        if (selectedOption) {
-            results.push(selectedOption.value === quiz.answer);
-        } else {
-            results.push(false);
-        }
+        results.push(selectedOption ? selectedOption.value === quiz.answer : false);
     });
 
     displayResults(results);
@@ -66,4 +60,3 @@ function displayResults(results) {
 }
 
 loadQuiz();
-
