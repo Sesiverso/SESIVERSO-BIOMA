@@ -1,181 +1,69 @@
-const biomas = ['Pampa', 'Amazônia', 'Cerrado', 'Caatinga'];
-const palavrasErradas = ['Deserto', 'Montanha', 'Cidade', 'Lago', 'Mar'];
-const todasAsPalavras = [...biomas, ...palavrasErradas];
-let acertos = 0;
-let totalPalavras = 10;
+const quizData = [
+    {
+        question: "Qual é a principal vegetação dos Pampas?",
+        options: ["Floresta", "Campo", "Deserto", "Tundra"],
+        answer: "Campo"
+    },
+    {
+        question: "Os Pampas são encontrados em quais países?",
+        options: ["Brasil e Argentina", "Brasil e Chile", "Argentina e Uruguai", "Uruguai e Brasil"],
+        answer: "Brasil e Argentina"
+    },
+    {
+        question: "Qual é um animal típico dos Pampas?",
+        options: ["Onça", "Tigre", "Capivara", "Cervo"],
+        answer: "Capivara"
+    },
+    {
+        question: "Qual é a principal atividade econômica dos Pampas?",
+        options: ["Pecuária", "Mineração", "Turismo", "Indústria"],
+        answer: "Pecuária"
+    }
+];
 
-function iniciarJogo() {
-    acertos = 0;
-    document.getElementById('resultado').textContent = '';
-    document.getElementById('palavras').innerHTML = '';
-    adicionarPalavras();
+let currentQuestionIndex = 0;
+
+function loadQuiz() {
+    const quizContainer = document.getElementById('quiz-container');
+    quizContainer.innerHTML = '';
+
+    quizData.forEach((quiz, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('question');
+        questionElement.innerHTML = `<h3>${quiz.question}</h3>`;
+
+        quiz.options.forEach(option => {
+            questionElement.innerHTML += `
+                <label class="option">
+                    <input type="radio" name="question${index}" value="${option}"> ${option}
+                </label>
+            `;
+        });
+
+        quizContainer.appendChild(questionElement);
+    });
 }
 
-function adicionarPalavras() {
-    const palavrasContainer = document.getElementById('palavras');
-    const palavrasSelecionadas = [];
-
-    while (palavrasSelecionadas.length < totalPalavras) {
-        const randomIndex = Math.floor(Math.random() * todasAsPalavras.length);
-        const palavra = todasAsPalavras[randomIndex];
-
-        if (!palavrasSelecionadas.includes(palavra)) {
-            palavrasSelecionadas.push(palavra);
-            const botao = document.createElement('button');
-            botao.textContent = palavra;
-            botao.onclick = () => verificarPalavra(palavra, botao);
-            palavrasContainer.appendChild(botao);
+function submitAnswers() {
+    const results = [];
+    quizData.forEach((quiz, index) => {
+        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+        if (selectedOption) {
+            results.push(selectedOption.value === quiz.answer);
+        } else {
+            results.push(false);
         }
-    }
-}
-
-function verificarPalavra(palavra, botao) {
-    if (biomas.includes(palavra)) {
-        acertos++;
-        botao.classList.add('correct');
-    } else {
-        botao.classList.add('incorrect');
-    }
-    botao.disabled = true; // Desabilitar botão após clique
-    checarFimDoJogo();
-}
-
-function checarFimDoJogo() {
-    const botoes = document.querySelectorAll('#palavras button');
-    if (botoes.length === 0 || Array.from(botoes).every(botao => botao.disabled)) {
-        mostrarResultado();
-    }
-}
-
-function mostrarResultado() {
-    const resultado = document.getElementById('resultado');
-    resultado.textContent = `Você acertou ${acertos} de ${totalPalavras} palavras corretas!`;
-    document.getElementById('reiniciar').style.display = 'block'; // Mostrar botão de reiniciar
-}
-
-function reiniciarJogo() {
-    document.getElementById('reiniciar').style.display = 'none';
-    iniciarJogo();
-}
-
-// Iniciar o jogo ao carregar a página
-document.addEventListener('DOMContentLoaded', iniciarJogo);
-const biomas = ['Pampa', 'Amazônia', 'Cerrado', 'Caatinga'];
-const palavrasErradas = ['Deserto', 'Montanha', 'Cidade', 'Lago', 'Mar'];
-const todasAsPalavras = [...biomas, ...palavrasErradas];
-const perguntas = {
-    'Pampa': {
-        texto: 'Qual é a principal característica do Pampa?',
-        opcoes: ['Florestas densas', 'Grandes áreas de gramíneas', 'Desertos áridos'],
-        respostaCorreta: 1
-    },
-    'Amazônia': {
-        texto: 'Qual é a maior floresta tropical do mundo?',
-        opcoes: ['Amazônia', 'Cerrado', 'Pampa'],
-        respostaCorreta: 0
-    },
-    'Cerrado': {
-        texto: 'Qual é a vegetação predominante do Cerrado?',
-        opcoes: ['Florestas densas', 'Gramíneas e arbustos', 'Desertos'],
-        respostaCorreta: 1
-    },
-    'Caatinga': {
-        texto: 'Qual é um animal típico da Caatinga?',
-        opcoes: ['Lobo-guará', 'Onça-pintada', 'Cervo-do-pantanal'],
-        respostaCorreta: 0
-    }
-};
-let acertos = 0;
-let totalPalavras = 10;
-let palavraAtual = '';
-
-function iniciarJogo() {
-    acertos = 0;
-    document.getElementById('resultado').textContent = '';
-    document.getElementById('palavras').innerHTML = '';
-    document.getElementById('pergunta').style.display = 'none';
-    adicionarPalavras();
-}
-
-function adicionarPalavras() {
-    const palavrasContainer = document.getElementById('palavras');
-    const palavrasSelecionadas = [];
-
-    while (palavrasSelecionadas.length < totalPalavras) {
-        const randomIndex = Math.floor(Math.random() * todasAsPalavras.length);
-        const palavra = todasAsPalavras[randomIndex];
-
-        if (!palavrasSelecionadas.includes(palavra)) {
-            palavrasSelecionadas.push(palavra);
-            const botao = document.createElement('button');
-            botao.textContent = palavra;
-            botao.onclick = () => verificarPalavra(palavra, botao);
-            palavrasContainer.appendChild(botao);
-        }
-    }
-}
-
-function verificarPalavra(palavra, botao) {
-    palavraAtual = palavra; // Armazena a palavra atual
-    if (biomas.includes(palavra)) {
-        acertos++;
-        botao.classList.add('correct');
-        mostrarPergunta(palavra); // Mostra a pergunta relacionada
-    } else {
-        botao.classList.add('incorrect');
-    }
-    botao.disabled = true; // Desabilitar botão após clique
-    checarFimDoJogo();
-}
-
-function mostrarPergunta(palavra) {
-    const perguntaElement = document.getElementById('texto-pergunta');
-    const opcoesElement = document.getElementById('opcoes');
-    const responderButton = document.getElementById('responder');
-
-    perguntaElement.textContent = perguntas[palavra].texto;
-    opcoesElement.innerHTML = '';
-    perguntas[palavra].opcoes.forEach((opcao, index) => {
-        const button = document.createElement('button');
-        button.textContent = opcao;
-        button.onclick = () => selecionarOpcao(index);
-        opcoesElement.appendChild(button);
     });
 
-    responderButton.style.display = 'block'; // Mostrar botão de responder
-    document.getElementById('pergunta').style.display = 'block'; // Mostrar a seção de pergunta
+    displayResults(results);
 }
 
-function selecionarOpcao(index) {
-    const respostaCorreta = perguntas[palavraAtual].respostaCorreta;
-    if (index === respostaCorreta) {
-        acertos++; // Incrementa acertos se a resposta estiver correta
-    }
-    document.getElementById('responder').disabled = false; // Habilitar botão de responder
+function displayResults(results) {
+    const resultElement = document.getElementById('result');
+    const correctAnswers = results.filter(result => result).length;
+
+    resultElement.innerHTML = `Você acertou ${correctAnswers} de ${quizData.length} perguntas.`;
 }
 
-function verificarResposta() {
-    document.getElementById('pergunta').style.display = 'none'; // Esconder pergunta
-    checarFimDoJogo();
-}
+loadQuiz();
 
-function checarFimDoJogo() {
-    const botoes = document.querySelectorAll('#palavras button');
-    if (botoes.length === 0 || Array.from(botoes).every(botao => botao.disabled)) {
-        mostrarResultado();
-    }
-}
-
-function mostrarResultado() {
-    const resultado = document.getElementById('resultado');
-    resultado.textContent = `Você acertou ${acertos} de ${totalPalavras} palavras corretas!`;
-    document.getElementById('reiniciar').style.display = 'block'; // Mostrar botão de reiniciar
-}
-
-function reiniciarJogo() {
-    document.getElementById('reiniciar').style.display = 'none';
-    iniciarJogo();
-}
-
-// Iniciar o jogo ao carregar a página
-document.addEventListener('DOMContentLoaded', iniciarJogo);
