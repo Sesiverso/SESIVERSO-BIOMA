@@ -10,17 +10,24 @@ h1 {
     color: #0066cc;
 }
 
-#palavras {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.question {
     margin: 20px 0;
+    font-size: 18px;
+}
+
+.options {
+    margin: 10px 0;
+}
+
+.option {
+    display: block;
+    margin: 5px 0;
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
-    margin: 5px;
+    margin: 20px 0;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -33,19 +40,8 @@ button:hover {
     background-color: #0056b3;
 }
 
-button.correct {
-    background-color: #28a745;
-}
-
-button.incorrect {
-    background-color: #dc3545;
-}
-
-#resultado {
+#result {
     font-size: 20px;
     margin-top: 20px;
 }
 
-#pergunta {
-    margin-top: 20px;
-}
