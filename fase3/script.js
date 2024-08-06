@@ -4,14 +4,15 @@ const boardElement = document.getElementById('board');
 
 const createBoard = () => {
     const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
+    const numbers = ['8', '7', '6', '5', '4', '3', '2', '1'];
 
-    for (let i = 7; i >= 0; i--) {
+    for (let i = 0; i < 8; i++) {
         for (let j = 0; j < 8; j++) {
             const square = document.createElement('div');
             square.classList.add('square');
             square.classList.add((i + j) % 2 === 0 ? 'white' : 'black');
             square.id = letters[j] + numbers[i];
+            square.addEventListener('click', () => onSquareClick(square));
             boardElement.appendChild(square);
         }
     }
@@ -26,9 +27,9 @@ const updateBoard = () => {
         square.innerHTML = '';
     });
 
-    squares.forEach((row, rowIndex) => {
+    let rowIndex = 0;
+    for (const row of squares) {
         let columnIndex = 0;
-
         for (const char of row) {
             if (!isNaN(char)) {
                 columnIndex += parseInt(char);
@@ -41,7 +42,8 @@ const updateBoard = () => {
                 columnIndex++;
             }
         }
-    });
+        rowIndex++;
+    }
 
     addPieceEventListeners();
 };
@@ -66,8 +68,48 @@ const onPieceClick = event => {
     moves.forEach(move => {
         const targetSquare = document.getElementById(move.to);
         targetSquare.classList.add('highlight');
-        targetSquare.addEventListener('click', onSquareClick.bind(null, pieceSquare, move.to), { once: true });
+        targetSquare.addEventListener('click', () => onMove(pieceSquare, move.to), { once: true });
     });
 };
 
-const onSquar
+const onMove = (from, to) => {
+    game.move({ from, to });
+    updateBoard();
+    setTimeout(makeRandomMove, 250);
+};
+
+const makeRandomMove = () => {
+    const possibleMoves = game.moves();
+    if (possibleMoves.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
+    game.move(possibleMoves[randomIndex]);
+    updateBoard();
+};
+
+const updateStatus = () => {
+    let status = '';
+
+    if (game.in_checkmate()) {
+        status = 'Fim de jogo, xeque-mate!';
+    } else if (game.in_draw()) {
+        status = 'Fim de jogo, empate!';
+    } else {
+        status = `Jogador: ${game.turn() === 'w' ? 'Indígenas' : 'Portugueses'}`;
+        if (game.in_check()) {
+            status += ', xeque!';
+        }
+    }
+
+    document.getElementById('status').textContent = status;
+};
+
+document.getElementById('reset-button').addEventListener('click', () => {
+    game.reset();
+    updateBoard();
+    updateStatus();
+});
+
+createBoard();
+updateBoard();
+updateStatus();
