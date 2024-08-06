@@ -4,10 +4,6 @@ const quizData = [
         answer: "pampa" // Resposta correta
     },
     {
-        question: "Sou um bioma que abriga a maior floresta tropical do mundo, conhecida por sua biodiversidade. Que bioma sou eu?",
-        answer: "amazônia"
-    },
-    {
         question: "Sou um bioma caracterizado por árvores de folhas largas e clima tropical, com grande quantidade de chuvas. Que bioma sou eu?",
         answer: "mata atlântica"
     },
@@ -33,6 +29,20 @@ const loadQuestion = () => {
     resultElement.textContent = ''; // Limpa o resultado anterior
 };
 
+// Função para verificar a charada sobre a Amazônia
+const checkRiddleAnswer = () => {
+    const riddleAnswer = "amazônia";
+    const userAnswer = answerInput.value.trim().toLowerCase();
+
+    if (userAnswer === riddleAnswer) {
+        alert('Você acertou a charada! Você será redirecionado para a fase 4.');
+        window.location.href = 'fase4.html'; // Altere para o nome do arquivo da fase 4
+    } else {
+        alert('Resposta incorreta. Tente novamente!');
+    }
+};
+
+// Função para verificar a resposta do quiz
 const checkAnswer = () => {
     const currentQuestion = quizData[currentQuestionIndex];
     const userAnswer = answerInput.value.trim().toLowerCase();
@@ -48,7 +58,13 @@ const checkAnswer = () => {
     }
 };
 
-checkButton.onclick = checkAnswer;
+checkButton.onclick = () => {
+    if (currentQuestionIndex === 0) {
+        checkRiddleAnswer(); // Verifica a charada da Amazônia
+    } else {
+        checkAnswer(); // Verifica as respostas do quiz
+    }
+};
 
 nextButton.onclick = () => {
     currentQuestionIndex++;
