@@ -27,7 +27,6 @@ function createBoard() {
                 </div>
             </div>
         `;
-        cardElement.addEventListener('click', flipCard);
         grid.appendChild(cardElement);
     });
 }
@@ -81,4 +80,37 @@ function resetGame() {
     createBoard();
 }
 
+function revealAndShuffle() {
+    const allCards = document.querySelectorAll('.card');
+    allCards.forEach(card => {
+        card.classList.add('flipped');
+    });
+
+    setTimeout(() => {
+        allCards.forEach(card => {
+            card.classList.remove('flipped');
+        });
+
+        cardArray.sort(() => 0.5 - Math.random());
+        grid.innerHTML = '';
+
+        cardArray.forEach((card, index) => {
+            const cardElement = document.createElement('div');
+            cardElement.classList.add('card');
+            cardElement.dataset.name = card.name;
+            cardElement.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back">
+                        <img src="${card.img}" alt="${card.name}">
+                    </div>
+                </div>
+            `;
+            cardElement.addEventListener('click', flipCard);
+            grid.appendChild(cardElement);
+        });
+    }, 3000);
+}
+
 createBoard();
+revealAndShuffle();
