@@ -65,5 +65,4 @@ function displayResults(results) {
 }
 
 // Renderiza o quiz ao carregar a página
-renderQuiz();
-
+document.addEventListener('DOMContentLoaded', renderQuiz);
