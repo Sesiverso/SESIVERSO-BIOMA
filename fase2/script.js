@@ -21,7 +21,7 @@ const quizData = [
     }
 ];
 
-function loadQuiz() {
+function renderQuiz() {
     const quizContainer = document.getElementById('quiz-container');
     quizContainer.innerHTML = '';
 
@@ -57,8 +57,13 @@ function displayResults(results) {
     const correctAnswers = results.filter(result => result).length;
 
     resultElement.innerHTML = `Você acertou ${correctAnswers} de ${quizData.length} perguntas.`;
+
+    // Atualiza a página após 3 segundos
+    setTimeout(() => {
+        location.reload();
+    }, 3000);
 }
 
-// Chama a função para carregar o quiz quando a página é carregada
-loadQuiz();
+// Renderiza o quiz ao carregar a página
+renderQuiz();
 
