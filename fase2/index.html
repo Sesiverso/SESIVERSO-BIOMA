@@ -3,14 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fase 2 - Quiz sobre os Pampas</title>
+    <title>Fase 2: Quiz de Biomas</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        function checkAnswers() {
+            const answers = document.querySelectorAll('.answer');
+            let allCorrect = true;
+
+            answers.forEach(answer => {
+                if (answer.value.trim().toLowerCase() !== answer.dataset.correct) {
+                    allCorrect = false;
+                }
+            });
+
+            if (allCorrect) {
+                alert("Acertou!");
+                window.location.href = 'fase3.html';
+            } else {
+                alert("Algumas respostas estão incorretas. Tente novamente.");
+            }
+        }
+    </script>
 </head>
 <body>
-    <h1>Fase 2 - Quiz sobre os Pampas</h1>
-    <div id="quiz-container"></div>
-    <button id="submit" onclick="submitAnswers()">Enviar Respostas</button>
-    <div id="result"></div>
-    <script src="script.js"></script>
+    <header>
+        <img src="images/logo.png" alt="Logotipo SESI Cataguases" id="logo">
+    </header>
+    <div id="quiz-container">
+        <h1>Fase 2: Quiz de Biomas</h1>
+        <div>
+            <p>Pergunta 1: Qual bioma é encontrado principalmente no sul do Brasil?</p>
+            <input type="text" class="answer" data-correct="pampa">
+        </div>
+        <div>
+            <p>Pergunta 2: Qual bioma tem a maior biodiversidade do planeta?</p>
+            <input type="text" class="answer" data-correct="amazônia">
+        </div>
+        <button onclick="checkAnswers()">Enviar Respostas</button>
+    </div>
+    <footer>
+        <p>&copy; 2024 SESI Cataguases. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
