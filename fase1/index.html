@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caça-Palavras: Biomas</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
     <h1>Caça-Palavras: Descubra o Bioma</h1>
@@ -14,14 +15,13 @@
         <p>Dica: Este bioma é conhecido por sua vegetação rasteira e árvores de pequeno porte.</p>
     </div>
 
-    <div id="caca-palavras">
-        <table>
-            <!-- Estrutura do caça-palavras será inserida aqui -->
-        </table>
-    </div>
+    <div id="wordsearch" class="grid"></div>
+    
+    <div id="result"></div>
+    <button id="verificar-palavras" onclick="checkWords()">Verificar Palavras</button>
+</body>
+</html>
 
-    <div id="mensagem"></div>
-    <button id="verificar-palavras">Verificar Palavras</button>
 
     <script src="script.js"></script>
 </body>
