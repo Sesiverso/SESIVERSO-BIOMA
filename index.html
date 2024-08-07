@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projetos das Fases - SESI Cataguases</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Seleção de Fases</title>
+    <link rel="stylesheet" href="style.css"> <!-- Referência ao CSS -->
 </head>
 <body>
-    <header>
-        <img src="images/logo.png" alt="Logotipo SESI Cataguases" id="logo">
-    </header>
-    <div id="projects-container">
-        <button onclick="window.location.href='fase1.index.html'">Fase 1: Caça Palavras</button>
-    </div>
-    <footer>
-        <p>&copy; 2024 SESI Cataguases. Todos os direitos reservados.</p>
-    </footer>
+    <h1>Bem-vindo ao Jogo dos Biomas</h1>
+    <p>Selecione uma fase para começar:</p>
+
+    <button id="fase1" onclick="location.href='index.html'">Fase 1: Caça-Palavras</button> <!-- Fase 1 habilitada -->
+    <button id="fase2" disabled>Fase 2: Quiz</button> <!-- Fase 2 desabilitada -->
+    <button id="fase3" disabled>Fase 3: Jogo da Memória</button> <!-- Fase 3 desabilitada -->
+    <button id="fase4" disabled>Fase 4: Quiz de Adivinhação</button> <!-- Fase 4 desabilitada -->
 </body>
 </html>
