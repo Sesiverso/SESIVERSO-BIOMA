@@ -6,25 +6,13 @@
     <title>Fase 2: Quiz de Biomas</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        function checkAnswers() {
-            const answer1 = document.getElementById('answer1').value.toLowerCase();
-            const answer2 = document.getElementById('answer2').value.toLowerCase();
-            const correctAnswers = {
-                "pergunta1": "pampa",
-                "pergunta2": "amazônia"
-            };
-
-            let isCorrect = true;
-
-            if (answer1 !== correctAnswers.pergunta1 || answer2 !== correctAnswers.pergunta2) {
-                isCorrect = false;
-            }
-
-            if (isCorrect) {
-                alert("Acertou!");
+        function checkAnswer() {
+            const answer = document.querySelector('input[name="biome"]:checked').value;
+            if (answer === 'amazônia') {
+                alert('Resposta correta!');
                 window.location.href = 'fase3.html';
             } else {
-                alert("Algumas respostas estão incorretas. Tente novamente.");
+                alert('Resposta incorreta, tente novamente.');
             }
         }
     </script>
@@ -35,18 +23,24 @@
     </header>
     <div id="quiz-container">
         <h1>Fase 2: Quiz de Biomas</h1>
-        <div>
-            <p>Pergunta 1: Qual bioma é encontrado principalmente no sul do Brasil?</p>
-            <input type="text" id="answer1" placeholder="Resposta">
-        </div>
-        <div>
-            <p>Pergunta 2: Qual bioma tem a maior biodiversidade do planeta?</p>
-            <input type="text" id="answer2" placeholder="Resposta">
-        </div>
-        <button onclick="checkAnswers()">Enviar Respostas</button>
+        <p>Qual é o bioma com a maior biodiversidade do planeta?</p>
+        <label>
+            <input type="radio" name="biome" value="caatinga"> Caatinga
+        </label><br>
+        <label>
+            <input type="radio" name="biome" value="cerrado"> Cerrado
+        </label><br>
+        <label>
+            <input type="radio" name="biome" value="amazônia"> Amazônia
+        </label><br>
+        <label>
+            <input type="radio" name="biome" value="pantanal"> Pantanal
+        </label><br>
+        <button onclick="checkAnswer()">Verificar</button>
     </div>
     <footer>
         <p>&copy; 2024 SESI Cataguases. Todos os direitos reservados.</p>
     </footer>
 </body>
 </html>
+
