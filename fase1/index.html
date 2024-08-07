@@ -6,22 +6,13 @@
     <title>Fase 1: Caça Palavras</title>
     <link rel="stylesheet" href="style.css">
     <script>
-        function checkWord() {
-            const foundWords = document.getElementById('foundWords').value.split(',');
-            const correctWords = ["PAMPA"];
-            let correctCount = 0;
-
-            foundWords.forEach(word => {
-                if (correctWords.includes(word.trim().toUpperCase())) {
-                    correctCount++;
-                }
-            });
-
-            if (correctCount === correctWords.length) {
-                alert("Acertou!");
+        function checkAnswer() {
+            const answer = document.getElementById('answer').value.toLowerCase();
+            if (answer === 'amazônia') {
+                alert('Resposta correta!');
                 window.location.href = 'fase2.html';
             } else {
-                alert("Tente novamente!");
+                alert('Resposta incorreta, tente novamente.');
             }
         }
     </script>
@@ -32,10 +23,9 @@
     </header>
     <div id="game-container">
         <h1>Fase 1: Caça Palavras</h1>
-        <p>Dica: Bioma encontrado principalmente no sul do Brasil.</p>
-        <!-- Adicione seu jogo de caça palavras aqui -->
-        <input type="text" id="foundWords" placeholder="Digite as palavras encontradas, separadas por vírgula">
-        <button onclick="checkWord()">Verificar</button>
+        <p>Encontre a palavra escondida relacionada ao bioma mais biodiverso do planeta:</p>
+        <input type="text" id="answer" placeholder="Digite sua resposta">
+        <button onclick="checkAnswer()">Verificar</button>
     </div>
     <footer>
         <p>&copy; 2024 SESI Cataguases. Todos os direitos reservados.</p>
