@@ -71,6 +71,9 @@ function checkWords() {
 
     if (selectedWord === correctWord) {
         result.textContent = 'Parabéns! Você encontrou o bioma correto: Pampa!';
+        setTimeout(() => {
+            window.location.href = 'fase2.html'; // Redireciona para a fase 2
+        }, 2000); // Redireciona após 2 segundos
     } else {
         result.textContent = 'Palavra incorreta. Tente novamente.';
     }
