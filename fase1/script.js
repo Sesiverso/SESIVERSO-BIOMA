@@ -32,7 +32,7 @@ function fillGrid() {
 }
 
 function placeWordInGrid(word) {
-    const direction = Math.random() < 0.5;
+    const direction = Math.random() < 0.5; // true para horizontal, false para vertical
     const maxStartIndex = gridSize - word.length;
     let startRow, startCol;
 
@@ -79,4 +79,5 @@ function checkWords() {
 }
 
 createGrid();
+
 
