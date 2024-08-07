@@ -7,16 +7,20 @@
     <link rel="stylesheet" href="style.css">
     <script>
         function checkAnswers() {
-            const answers = document.querySelectorAll('.answer');
-            let allCorrect = true;
+            const answer1 = document.getElementById('answer1').value.toLowerCase();
+            const answer2 = document.getElementById('answer2').value.toLowerCase();
+            const correctAnswers = {
+                "pergunta1": "pampa",
+                "pergunta2": "amazônia"
+            };
 
-            answers.forEach(answer => {
-                if (answer.value.trim().toLowerCase() !== answer.dataset.correct) {
-                    allCorrect = false;
-                }
-            });
+            let isCorrect = true;
 
-            if (allCorrect) {
+            if (answer1 !== correctAnswers.pergunta1 || answer2 !== correctAnswers.pergunta2) {
+                isCorrect = false;
+            }
+
+            if (isCorrect) {
                 alert("Acertou!");
                 window.location.href = 'fase3.html';
             } else {
@@ -33,11 +37,11 @@
         <h1>Fase 2: Quiz de Biomas</h1>
         <div>
             <p>Pergunta 1: Qual bioma é encontrado principalmente no sul do Brasil?</p>
-            <input type="text" class="answer" data-correct="pampa">
+            <input type="text" id="answer1" placeholder="Resposta">
         </div>
         <div>
             <p>Pergunta 2: Qual bioma tem a maior biodiversidade do planeta?</p>
-            <input type="text" class="answer" data-correct="amazônia">
+            <input type="text" id="answer2" placeholder="Resposta">
         </div>
         <button onclick="checkAnswers()">Enviar Respostas</button>
     </div>
