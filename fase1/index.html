@@ -3,32 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fase 1: Caça Palavras</title>
+    <title>Caça-Palavras: Biomas</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-        function checkAnswer() {
-            const answer = document.getElementById('answer').value.toLowerCase();
-            if (answer === 'amazônia') {
-                alert('Resposta correta!');
-                window.location.href = 'fase2.html';
-            } else {
-                alert('Resposta incorreta, tente novamente.');
-            }
-        }
-    </script>
 </head>
 <body>
-    <header>
-        <img src="images/logo.png" alt="Logotipo SESI Cataguases" id="logo">
-    </header>
-    <div id="game-container">
-        <h1>Fase 1: Caça Palavras</h1>
-        <p>Encontre a palavra escondida relacionada ao bioma mais biodiverso do planeta:</p>
-        <input type="text" id="answer" placeholder="Digite sua resposta">
-        <button onclick="checkAnswer()">Verificar</button>
+    <h1>Caça-Palavras: Descubra o Bioma</h1>
+    <p>Encontre os biomas corretos baseado nas dicas fornecidas.</p>
+
+    <div id="dicas">
+        <p>Dica: Este bioma é conhecido por sua vegetação rasteira e árvores de pequeno porte.</p>
     </div>
-    <footer>
-        <p>&copy; 2024 SESI Cataguases. Todos os direitos reservados.</p>
-    </footer>
+
+    <div id="caca-palavras">
+        <table>
+            <!-- Estrutura do caça-palavras será inserida aqui -->
+        </table>
+    </div>
+
+    <div id="mensagem"></div>
+    <button id="verificar-palavras">Verificar Palavras</button>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
