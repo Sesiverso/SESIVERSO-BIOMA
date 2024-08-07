@@ -3,15 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fase 1 - Caça-palavras dos Biomas</title>
+    <title>Fase 1: Caça Palavras</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        function checkWord() {
+            const foundWords = document.getElementById('foundWords').value.split(',');
+            const correctWords = ["PAMPA"];
+            let correctCount = 0;
+
+            foundWords.forEach(word => {
+                if (correctWords.includes(word.trim().toUpperCase())) {
+                    correctCount++;
+                }
+            });
+
+            if (correctCount === correctWords.length) {
+                alert("Acertou!");
+                window.location.href = 'fase2.html';
+            } else {
+                alert("Tente novamente!");
+            }
+        }
+    </script>
 </head>
 <body>
-    <h1>Fase 1 - Monte A Palavra correta</h1>
-    <p>Dicas: Este bioma é encontrado no sul do Brasil, Argentina e Uruguai. É caracterizado por grandes planícies com vegetação rasteira.</p>
-    <div id="wordsearch"></div>
-    <button id="check" onclick="checkWords()">Verificar Palavras</button>
-    <div id="result"></div>
-    <script src="script.js"></script>
+    <header>
+        <img src="images/logo.png" alt="Logotipo SESI Cataguases" id="logo">
+    </header>
+    <div id="game-container">
+        <h1>Fase 1: Caça Palavras</h1>
+        <p>Dica: Bioma encontrado principalmente no sul do Brasil.</p>
+        <!-- Adicione seu jogo de caça palavras aqui -->
+        <input type="text" id="foundWords" placeholder="Digite as palavras encontradas, separadas por vírgula">
+        <button onclick="checkWord()">Verificar</button>
+    </div>
+    <footer>
+        <p>&copy; 2024 SESI Cataguases. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
