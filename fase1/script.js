@@ -20,21 +20,19 @@ function createGrid() {
 }
 
 function fillGrid() {
-    // Preencher a grade com letras aleatórias
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     document.querySelectorAll('.cell').forEach(cell => {
         const randomLetter = letters[Math.floor(Math.random() * letters.length)];
         cell.textContent = randomLetter;
     });
 
-    // Colocar as palavras na grade
     words.forEach(word => {
         placeWordInGrid(word);
     });
 }
 
 function placeWordInGrid(word) {
-    const direction = Math.random() < 0.5; // true para horizontal, false para vertical
+    const direction = Math.random() < 0.5;
     const maxStartIndex = gridSize - word.length;
     let startRow, startCol;
 
@@ -71,9 +69,10 @@ function checkWords() {
 
     if (selectedWord === correctWord) {
         result.textContent = 'Parabéns! Você encontrou o bioma correto: Pampa!';
-        setTimeout(() => {
+        const redirect = confirm('Você encontrou o bioma correto! Clique OK para ir para a próxima fase.');
+        if (redirect) {
             window.location.href = 'fase2.html'; // Redireciona para a fase 2
-        }, 2000); // Redireciona após 2 segundos
+        }
     } else {
         result.textContent = 'Palavra incorreta. Tente novamente.';
     }
