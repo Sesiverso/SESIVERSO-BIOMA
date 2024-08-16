@@ -1,14 +1,14 @@
 const words = [
-    "PAMPA",     // Bioma
-    "PLANICIE",  // Característica do terreno
-    "NANDU",     // Animal símbolo do bioma
+    "PLANICIE",  // Grande área de planícies
+    "NANDU",     // Animal corredor símbolo
     "TUCO",      // Pequeno roedor
-    "CAPIM",     // Tipo de vegetação
-    "EMA",       // Grupo de aves
-    "ARENOSO",   // Tipo de solo
-    "OMBÚ",      // Árvore característica
+    "CAPIM",     // Tipo de capim comum
+    "EMA",       // Ave conhecida por andar em bandos
+    "ARENOSO",   // Tipo de solo predominante
+    "OMBU",      // Árvore característica
     "PARANA",    // Importante rio
-    "PASTAGEM"   // Vegetação para pastagem
+    "PASTAGEM",  // Planta usada para pastagem
+    "PAMPAS"     // Região típica
 ];
 
 const correctWords = new Set(words);
@@ -79,7 +79,7 @@ function checkWords() {
     const result = document.getElementById('result');
 
     if (correctWords.has(selectedWord)) {
-        result.textContent = `Parabéns! Você encontrou a palavra: ${selectedWord}!`;
+        result.textContent = `Parabéns! Você encontrou uma característica do bioma Pampas: ${selectedWord}!`;
     } else {
         result.textContent = 'Palavra incorreta. Tente novamente.';
     }
