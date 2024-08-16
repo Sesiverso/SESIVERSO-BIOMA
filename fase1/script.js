@@ -1,14 +1,14 @@
 const words = [
-    "PLANICIE",  // Grande área de planícies
-    "NANDU",     // Animal corredor símbolo
-    "TUCO",      // Pequeno roedor
-    "CAPIM",     // Tipo de capim comum
-    "EMA",       // Ave conhecida por andar em bandos
-    "ARENOSO",   // Tipo de solo predominante
-    "OMBU",      // Árvore característica
-    "PARANA",    // Importante rio
-    "PASTAGEM",  // Planta usada para pastagem
-    "PAMPAS"     // Região típica
+    "PLANICIE",   // Grande área plana com vegetação rasteira
+    "NANDU",      // Ave grande que não voa
+    "TUCO",       // Roedor pequeno encontrado nos Pampas
+    "GRAMINHA",   // Tipo de grama resistente ao fogo
+    "ARENOSO",    // Solo característico dos Pampas
+    "PARANA",     // Rio importante que atravessa o bioma Pampas
+    "PASTAGEM",   // Planta usada como pastagem no bioma
+    "OMBU",       // Árvore típica dos Pampas
+    "PAMPAS",     // Região onde o bioma Pampas é predominante
+    "BARBASCO"    // Capim nativo utilizado na alimentação do gado
 ];
 
 const correctWords = new Set(words);
