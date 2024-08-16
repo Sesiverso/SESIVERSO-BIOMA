@@ -14,6 +14,7 @@ const words = [
 const correctWords = new Set(words);
 const gridSize = 10;
 let selectedCells = [];
+let foundWords = new Set();  // Para armazenar palavras encontradas
 
 const wordsearch = document.getElementById('wordsearch');
 
@@ -54,6 +55,7 @@ function placeWordInGrid(word) {
             for (let i = 0; i < word.length; i++) {
                 const cell = document.querySelector(`.cell[data-row='${startRow}'][data-col='${startCol + i}']`);
                 cell.textContent = word[i];
+                cell.dataset.word = word; // Marcar a célula com a palavra
             }
             break;
         case 1: // Vertical
@@ -62,6 +64,7 @@ function placeWordInGrid(word) {
             for (let i = 0; i < word.length; i++) {
                 const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol}']`);
                 cell.textContent = word[i];
+                cell.dataset.word = word; // Marcar a célula com a palavra
             }
             break;
         case 2: // Diagonal
@@ -70,6 +73,7 @@ function placeWordInGrid(word) {
             for (let i = 0; i < word.length; i++) {
                 const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol + i}']`);
                 cell.textContent = word[i];
+                cell.dataset.word = word; // Marcar a célula com a palavra
             }
             break;
     }
@@ -91,9 +95,20 @@ function checkWords() {
 
     if (correctWords.has(selectedWord)) {
         result.textContent = `Parabéns! Você encontrou uma característica do bioma Pampas: ${selectedWord}!`;
+        disableWordCells(selectedWord); // Desativar células da palavra encontrada
+        foundWords.add(selectedWord); // Adicionar palavra ao conjunto de encontradas
+        selectedCells = []; // Limpar seleção após acerto
     } else {
         result.textContent = 'Palavra incorreta. Tente novamente.';
     }
+}
+
+function disableWordCells(word) {
+    document.querySelectorAll(`.cell[data-word='${word}']`).forEach(cell => {
+        cell.classList.add('found'); // Adicionar classe para indicar que a palavra foi encontrada
+        cell.removeEventListener('click', () => selectCell(cell)); // Remover o evento de clique
+        cell.style.backgroundColor = '#28a745'; // Alterar a cor de fundo para indicar que a palavra foi encontrada
+    });
 }
 
 createGrid();
