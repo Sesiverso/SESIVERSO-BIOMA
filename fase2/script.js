@@ -21,7 +21,9 @@ const quizData = [
     }
 ];
 
-function renderQuiz() {
+let currentQuestionIndex = 0;
+
+function loadQuiz() {
     const quizContainer = document.getElementById('quiz-container');
     quizContainer.innerHTML = '';
 
@@ -46,7 +48,11 @@ function submitAnswers() {
     const results = [];
     quizData.forEach((quiz, index) => {
         const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-        results.push(selectedOption ? selectedOption.value === quiz.answer : false);
+        if (selectedOption) {
+            results.push(selectedOption.value === quiz.answer);
+        } else {
+            results.push(false);
+        }
     });
 
     displayResults(results);
@@ -57,12 +63,6 @@ function displayResults(results) {
     const correctAnswers = results.filter(result => result).length;
 
     resultElement.innerHTML = `Você acertou ${correctAnswers} de ${quizData.length} perguntas.`;
-
-    // Atualiza a página após 3 segundos
-    setTimeout(() => {
-        location.reload();
-    }, 3000);
 }
 
-// Renderiza o quiz ao carregar a página
-document.addEventListener('DOMContentLoaded', renderQuiz);
+loadQuiz();
