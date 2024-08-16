@@ -1,5 +1,17 @@
-const words = ["PAMPA", "AMAZONIA", "CERRADO", "CAATINGA", "PANTANAL"];
-const correctWord = "PAMPA";
+const words = [
+    "PAMPA",     // Bioma
+    "PLANICIE",  // Característica do terreno
+    "NANDU",     // Animal símbolo do bioma
+    "TUCO",      // Pequeno roedor
+    "CAPIM",     // Tipo de vegetação
+    "EMA",       // Grupo de aves
+    "ARENOSO",   // Tipo de solo
+    "OMBÚ",      // Árvore característica
+    "PARANA",    // Importante rio
+    "PASTAGEM"   // Vegetação para pastagem
+];
+
+const correctWords = new Set(words);
 const gridSize = 10;
 let selectedCells = [];
 
@@ -20,14 +32,12 @@ function createGrid() {
 }
 
 function fillGrid() {
-    // Preencher a grade com letras aleatórias
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     document.querySelectorAll('.cell').forEach(cell => {
         const randomLetter = letters[Math.floor(Math.random() * letters.length)];
         cell.textContent = randomLetter;
     });
 
-    // Colocar as palavras na grade
     words.forEach(word => {
         placeWordInGrid(word);
     });
@@ -35,7 +45,6 @@ function fillGrid() {
 
 function placeWordInGrid(word) {
     const direction = Math.random() < 0.5; // true para horizontal, false para vertical
-    const maxStartIndex = gridSize - word.length;
     let startRow, startCol;
 
     if (direction) {
@@ -69,8 +78,8 @@ function checkWords() {
     const selectedWord = selectedCells.map(cell => cell.textContent).join('');
     const result = document.getElementById('result');
 
-    if (selectedWord === correctWord) {
-        result.textContent = 'Parabéns! Você encontrou o bioma correto: Pampa!';
+    if (correctWords.has(selectedWord)) {
+        result.textContent = `Parabéns! Você encontrou a palavra: ${selectedWord}!`;
     } else {
         result.textContent = 'Palavra incorreta. Tente novamente.';
     }
