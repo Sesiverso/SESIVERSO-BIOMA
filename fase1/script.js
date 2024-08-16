@@ -44,23 +44,34 @@ function fillGrid() {
 }
 
 function placeWordInGrid(word) {
-    const direction = Math.random() < 0.5; // true para horizontal, false para vertical
+    const direction = Math.floor(Math.random() * 3); // 0: horizontal, 1: vertical, 2: diagonal
     let startRow, startCol;
 
-    if (direction) {
-        startRow = Math.floor(Math.random() * gridSize);
-        startCol = Math.floor(Math.random() * (gridSize - word.length));
-        for (let i = 0; i < word.length; i++) {
-            const cell = document.querySelector(`.cell[data-row='${startRow}'][data-col='${startCol + i}']`);
-            cell.textContent = word[i];
-        }
-    } else {
-        startRow = Math.floor(Math.random() * (gridSize - word.length));
-        startCol = Math.floor(Math.random() * gridSize);
-        for (let i = 0; i < word.length; i++) {
-            const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol}']`);
-            cell.textContent = word[i];
-        }
+    switch(direction) {
+        case 0: // Horizontal
+            startRow = Math.floor(Math.random() * gridSize);
+            startCol = Math.floor(Math.random() * (gridSize - word.length));
+            for (let i = 0; i < word.length; i++) {
+                const cell = document.querySelector(`.cell[data-row='${startRow}'][data-col='${startCol + i}']`);
+                cell.textContent = word[i];
+            }
+            break;
+        case 1: // Vertical
+            startRow = Math.floor(Math.random() * (gridSize - word.length));
+            startCol = Math.floor(Math.random() * gridSize);
+            for (let i = 0; i < word.length; i++) {
+                const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol}']`);
+                cell.textContent = word[i];
+            }
+            break;
+        case 2: // Diagonal
+            startRow = Math.floor(Math.random() * (gridSize - word.length));
+            startCol = Math.floor(Math.random() * (gridSize - word.length));
+            for (let i = 0; i < word.length; i++) {
+                const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol + i}']`);
+                cell.textContent = word[i];
+            }
+            break;
     }
 }
 
