@@ -1,88 +1,62 @@
-const words = [
-    "PLANICIE",  // Grande área de planícies
-    "NANDU",     // Animal corredor símbolo
-    "TUCO",      // Pequeno roedor
-    "CAPIM",     // Tipo de capim comum
-    "EMA",       // Ave conhecida por andar em bandos
-    "ARENOSO",   // Tipo de solo predominante
-    "OMBU",      // Árvore característica
-    "PARANA",    // Importante rio
-    "PASTAGEM",  // Planta usada para pastagem
-    "PAMPAS"     // Região típica
-];
-
-const correctWords = new Set(words);
-const gridSize = 10;
-let selectedCells = [];
-
-const wordsearch = document.getElementById('wordsearch');
-
-function createGrid() {
-    for (let i = 0; i < gridSize; i++) {
-        for (let j = 0; j < gridSize; j++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.dataset.row = i;
-            cell.dataset.col = j;
-            cell.addEventListener('click', () => selectCell(cell));
-            wordsearch.appendChild(cell);
-        }
-    }
-    fillGrid();
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    text-align: center;
+    padding: 50px;
 }
 
-function fillGrid() {
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    document.querySelectorAll('.cell').forEach(cell => {
-        const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-        cell.textContent = randomLetter;
-    });
-
-    words.forEach(word => {
-        placeWordInGrid(word);
-    });
+h1 {
+    color: #0066cc;
 }
 
-function placeWordInGrid(word) {
-    const direction = Math.random() < 0.5; // true para horizontal, false para vertical
-    let startRow, startCol;
-
-    if (direction) {
-        startRow = Math.floor(Math.random() * gridSize);
-        startCol = Math.floor(Math.random() * (gridSize - word.length));
-        for (let i = 0; i < word.length; i++) {
-            const cell = document.querySelector(`.cell[data-row='${startRow}'][data-col='${startCol + i}']`);
-            cell.textContent = word[i];
-        }
-    } else {
-        startRow = Math.floor(Math.random() * (gridSize - word.length));
-        startCol = Math.floor(Math.random() * gridSize);
-        for (let i = 0; i < word.length; i++) {
-            const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol}']`);
-            cell.textContent = word[i];
-        }
-    }
+#wordsearch {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    gap: 5px;
+    justify-content: center;
+    margin: 20px 0;
 }
 
-function selectCell(cell) {
-    if (!cell.classList.contains('selected')) {
-        cell.classList.add('selected');
-        selectedCells.push(cell);
-    } else {
-        cell.classList.remove('selected');
-        selectedCells = selectedCells.filter(c => c !== cell);
-    }
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 18px;
 }
 
-function checkWords() {
-    const selectedWord = selectedCells.map(cell => cell.textContent).join('');
-    const result = document.getElementById('result');
-
-    if (correctWords.has(selectedWord)) {
-        result.textContent = `Parabéns! Você encontrou uma característica do bioma Pampas: ${selectedWord}!`;
-    } else {
-        result.textContent = 'Palavra incorreta. Tente novamente.';
-    }
+.selected {
+    background-color: #007bff;
+    color: white;
 }
 
-createGrid();
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#check {
+    display: block;
+    margin: 20px auto;
+}
+
+#result {
+    font-size: 20px;
+    margin-top: 20px;
+}
