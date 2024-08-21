@@ -6,7 +6,7 @@ const quizData = [
     },
     {
         question: "Os Pampas são encontrados em quais países?",
-        options: ["Brasil e Argentina", "Brasil e Chile", "Argentina e Uruguai", "Uruguai e Brasil"],
+        options: ["Brasil,Argentina e Uruguai", "Brasil e Chile", "Argentina e Uruguai", "Uruguai e Brasil"],
         answer: "Brasil e Argentina"
     },
     {
