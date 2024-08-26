@@ -4,12 +4,16 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed; /* Fixa a imagem de fundo */
     color: #333;
     text-align: center;
-    padding: 50px;
-    position: relative;
+    margin: 0; /* Remove a margem padrão do body */
     overflow-x: hidden; /* Impede rolagem horizontal */
-    min-height: 100vh; /* Garante que o body tenha pelo menos a altura da tela */
+}
+
+.container {
+    min-height: 200vh; /* Garante rolagem vertical suficiente */
+    padding: 50px;
     box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
 }
 
