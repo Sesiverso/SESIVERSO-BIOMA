@@ -8,7 +8,10 @@ body {
     text-align: center;
     padding: 50px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden; /* Impede rolagem horizontal */
+    overflow-y: auto; /* Permite rolagem vertical */
+    min-height: 100vh; /* Garante que o body tenha pelo menos a altura da tela */
+    box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
 }
 
 h1 {
@@ -137,4 +140,3 @@ button:hover {
         transform: translateX(10px) rotate(3deg);
     }
 }
-
