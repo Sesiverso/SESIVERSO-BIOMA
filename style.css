@@ -2,9 +2,16 @@ body {
     font-family: 'Display', Arial, sans-serif;
     background-color: #f0f0f0;
     color: #333;
-    text-align: center;
-    padding: 50px;
+    margin: 0;
+    padding: 0;
     overflow: hidden; /* Para evitar scroll causado pela animação das plantas */
+}
+
+.content {
+    min-height: 100vh; /* Garante que a área de conteúdo ocupe pelo menos a altura da tela */
+    padding: 50px;
+    box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
+    overflow-y: auto; /* Permite rolagem vertical */
 }
 
 h1 {
@@ -88,4 +95,13 @@ button.disabled {
     }
     50% {
         transform: translateX(10px) rotate(3deg); /* Efeito de balanço */
-   
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #eee;
+    border-top: 1px solid #ccc;
+    position: relative;
+}
