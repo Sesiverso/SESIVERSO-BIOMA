@@ -8,14 +8,12 @@ body {
 
 h1 {
     color: #0066cc;
-    font-family: 'Display', Arial, sans-serif;
 }
 
 #fases {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Display', Arial, sans-serif;
 }
 
 button {
@@ -28,7 +26,7 @@ button {
     background-color: #007bff;
     color: white;
     transition: background-color 0.3s;
-    font-family: 'Display', Arial, sans-serif;
+    font-family: 'Display', Arial, sans-serif; /* Aplica a fonte Display aos botões */
 }
 
 button.enabled:hover {
