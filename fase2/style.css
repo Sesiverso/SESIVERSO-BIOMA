@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-image: url('https://static.vecteezy.com/ti/vetor-gratis/p3/13699228-desenho-animado-natureza-paisagem-verde-planicie-ou-campo-gratis-vetor.jpg');
     background-size: cover;
     background-position: center;
@@ -12,72 +12,83 @@ body {
 }
 
 h1 {
-    color: #0066cc;
+    color: #ff5722; /* Cor laranja brilhante para destaque */
     font-size: 4em;
-    text-shadow: 3px 3px #aaa;
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
     margin-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     display: inline-block;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 3px solid #ff5722; /* Borda destacada */
 }
 
 .question {
-    margin: 20px 0;
-    font-size: 1.8em;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
+    margin: 30px 0;
+    font-size: 2em;
+    color: #4caf50; /* Verde mais forte */
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
     border-radius: 10px;
-    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para efeito de profundidade */
+    border: 2px solid #4caf50; /* Borda verde para destaque */
 }
 
 .option {
     display: block;
-    margin: 10px 0;
-    font-size: 1.2em;
+    margin: 15px 0;
+    font-size: 1.5em;
     text-align: left;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.option:hover {
+    background-color: #e0e0e0; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Leve aumento de tamanho */
 }
 
 button {
     padding: 15px 30px;
-    font-size: 22px;
-    font-family: Arial, sans-serif;
+    font-size: 1.8em;
+    font-family: 'Arial', sans-serif;
     font-weight: bold;
     cursor: pointer;
     border: none;
-    border-radius: 10px;
-    background-color: #28a745;
+    border-radius: 15px;
+    background-color: #ff5722; /* Laranja brilhante */
     color: white;
     transition: all 0.3s;
-    box-shadow: 0 5px #1c7430, 0 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     text-transform: uppercase;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     position: relative;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 button:active {
-    box-shadow: 0 3px #1c7430;
-    transform: translateY(2px);
+    box-shadow: 0 5px #e64a19; /* Cor de sombra ao clicar */
+    transform: translateY(3px); /* Deslocamento ao clicar */
 }
 
 button:hover {
-    background-color: #218838;
-    transform: translateY(-3px);
-    box-shadow: 0 8px #1c7430, 0 12px 20px rgba(0, 0, 0, 0.2);
+    background-color: #e64a19; /* Cor de fundo ao passar o mouse */
+    transform: translateY(-5px); /* Levantar ao passar o mouse */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4); /* Sombra mais forte ao passar o mouse */
 }
 
 #result {
-    font-size: 2em;
-    margin-top: 20px;
-    color: #28a745;
-    text-shadow: 2px 2px #ccc;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
+    font-size: 2.5em;
+    margin-top: 30px;
+    color: #4caf50; /* Verde brilhante */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: inline-block;
 }
 
