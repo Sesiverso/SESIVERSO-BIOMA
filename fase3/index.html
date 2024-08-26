@@ -3,77 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fase 3: Jogo da Memória</title>
+    <title>Fase 3 - Caça-palavras da Mata Atlântica</title>
     <link rel="stylesheet" href="style.css">
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.card');
-            let hasFlippedCard = false;
-            let firstCard, secondCard;
-            let lockBoard = false;
-
-            function flipCard() {
-                if (lockBoard) return;
-                if (this === firstCard) return;
-
-                this.classList.add('flip');
-
-                if (!hasFlippedCard) {
-                    hasFlippedCard = true;
-                    firstCard = this;
-                    return;
-                }
-
-                secondCard = this;
-                lockBoard = true;
-
-                checkForMatch();
-            }
-
-            function checkForMatch() {
-                let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
-                isMatch ? disableCards() : unflipCards();
-            }
-
-            function disableCards() {
-                firstCard.removeEventListener('click', flipCard);
-                secondCard.removeEventListener('click', flipCard);
-
-                resetBoard();
-            }
-
-            function unflipCards() {
-                setTimeout(() => {
-                    firstCard.classList.remove('flip');
-                    secondCard.classList.remove('flip');
-
-                    resetBoard();
-                }, 1500);
-            }
-
-            function resetBoard() {
-                [hasFlippedCard, lockBoard] = [false, false];
-                [firstCard, secondCard] = [null, null];
-            }
-
-            (function shuffle() {
-                cards.forEach(card => {
-                    let randomPos = Math.floor(Math.random() * 12);
-                    card.style.order = randomPos;
-                });
-            })();
-
-            cards.forEach(card => card.addEventListener('click', flipCard));
-        });
-    </script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <img src="images/logo.png" alt="Logotipo SESI Cataguases" id="logo">
-    </header>
-    <div id="memory-game">
-        <div class="card" data-framework="tucano">
-            <img class="front-face" src="images/tucano.png" alt="Tucano">
-            <img class="back-face" src="images/back.png" alt="Card Back">
-        </di
+    <div class="container">
+        <h1>Fase 3 - Caça-palavras da Mata Atlântica</h1>
+        <p>Bioma: Mata Atlântica</p>
+        <p>Dicas:</p>
+        <ul>
+            <li>1. Árvore alta com folhas grandes, comum na Mata Atlântica.</li>
+            <li>2. Ave colorida encontrada na Mata Atlântica, conhecida por seu canto.</li>
+            <li>3. Tipo de planta com folhas largas e ornamentais.</li>
+            <li>4. Grande felino, um dos predadores da Mata Atlântica.</li>
+            <li>5. Tipo de macaco que vive nas árvores da Mata Atlântica.</li>
+            <li>6. Flor que cresce em áreas sombreadas da Mata Atlântica.</li>
+            <li>7. Tipo de cipó encontrado na Mata Atlântica, conhecido por suas flores.</li>
+            <li>8. Árvore com frutos secos, importante para a fauna da Mata Atlântica.</li>
+            <li>9. Planta aquática que pode ser encontrada em rios da Mata Atlântica.</li>
+            <li>10. Animal noturno que habita as florestas da Mata Atlântica.</li>
+        </ul>
+        <div id="wordsearch"></div>
+        <button id="check" onclick="checkWords()">Verificar Palavras</button>
+        <div id="result"></div>
+    </div>
+</body>
+</html>
+
 
