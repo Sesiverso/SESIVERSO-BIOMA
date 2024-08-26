@@ -12,6 +12,7 @@ body {
     padding: 50px;
     box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
     overflow-y: auto; /* Permite rolagem vertical */
+    position: relative; /* Para garantir que o conteúdo não se sobreponha às plantas */
 }
 
 h1 {
@@ -104,4 +105,5 @@ footer {
     background-color: #eee;
     border-top: 1px solid #ccc;
     position: relative;
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.3);
 }
