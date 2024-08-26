@@ -4,29 +4,27 @@ body {
     color: #333;
     text-align: center;
     padding: 50px;
-    background-image: url('https://i.pinimg.com/originals/b4/32/d1/b432d14213c8ad610c2766fe4a3cd326.png');
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: contain;
+    overflow: hidden; /* Para evitar scroll causado pela animação das plantas */
 }
 
 h1 {
     color: #0066cc;
-    font-size: 3em;
-    text-shadow: 2px 2px #aaa;
+    font-size: 4em; /* Texto grande e chamativo */
+    text-shadow: 3px 3px #aaa;
+    margin-bottom: 20px;
 }
 
 #fases {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-top: 30px;
+    gap: 15px;
+    margin-top: 50px;
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 20px 40px;
+    font-size: 22px;
     font-family: 'Display', Arial, sans-serif;
     font-weight: bold;
     cursor: pointer;
@@ -56,3 +54,38 @@ button.disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
+
+#plants-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* As plantas não interferem no clique dos botões */
+}
+
+.plant {
+    position: absolute;
+    bottom: 0;
+    width: 20%;
+    opacity: 0.8;
+    animation: sway 5s infinite ease-in-out;
+}
+
+.plant.left {
+    left: 0;
+    animation-delay: 0s;
+}
+
+.plant.right {
+    right: 0;
+    animation-delay: 2.5s; /* Para que as plantas não balancem ao mesmo tempo */
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(10px) rotate(3deg); /* Efeito de balanço */
+   
