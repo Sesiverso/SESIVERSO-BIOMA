@@ -96,12 +96,31 @@ function checkWords() {
 }
 
 function disableWordCells(word) {
-    document.querySelectorAll(`.cell[data-word='${word}']`).forEach(cell => {
+    const wordCells = Array.from(document.querySelectorAll(`.cell[data-word='${word}']`));
+    
+    // Remove 'selected' class from all cells before highlighting correct ones
+    document.querySelectorAll('.cell.selected').forEach(cell => {
+        cell.classList.remove('selected');
+    });
+    
+    wordCells.forEach(cell => {
         cell.classList.add('found');
-        cell.removeEventListener('click', () => selectCell(cell));
         cell.style.backgroundColor = '#28a745';
+        cell.style.color = 'white';
+        cell.style.pointerEvents = 'none'; // Disable clicking
+    });
+
+    // Also mark correctly selected cells
+    selectedCells.forEach(cell => {
+        if (wordCells.includes(cell)) {
+            cell.classList.add('found');
+            cell.style.backgroundColor = '#28a745';
+            cell.style.color = 'white';
+            cell.style.pointerEvents = 'none'; // Disable clicking
+        }
     });
 }
 
 createGrid();
+
 
