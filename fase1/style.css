@@ -83,5 +83,58 @@ button:active {
 button:hover {
     background-color: #218838;
     transform: translateY(-3px);
-    box-shadow: 0 8px #1c7430, 0 12px 20px rgba(0, 0, 
+    box-shadow: 0 8px #1c7430, 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+#check {
+    display: block;
+    margin: 20px auto;
+}
+
+#result {
+    font-size: 2em;
+    margin-top: 20px;
+    color: #28a745;
+    text-shadow: 2px 2px #ccc;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+#plants-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.plant {
+    position: absolute;
+    bottom: 0;
+    width: 20%;
+    opacity: 0.8;
+    animation: sway 5s infinite ease-in-out;
+}
+
+.plant.left {
+    left: 0;
+    animation-delay: 0s;
+}
+
+.plant.right {
+    right: 0;
+    animation-delay: 2.5s;
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateX(10px) rotate(3deg);
+    }
+}
 
