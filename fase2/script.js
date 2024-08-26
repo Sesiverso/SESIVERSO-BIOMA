@@ -6,8 +6,8 @@ const quizData = [
     },
     {
         question: "Os Pampas são encontrados em quais países?",
-        options: ["Brasil,Argentina e Uruguai", "Brasil e Chile", "Argentina e Uruguai", "Uruguai e Brasil"],
-        answer: "Brasil e Argentina"
+        options: ["Brasil, Argentina e Uruguai", "Brasil e Chile", "Argentina e Uruguai", "Uruguai e Brasil"],
+        answer: "Brasil, Argentina e Uruguai"
     },
     {
         question: "Qual é um animal típico dos Pampas?",
@@ -20,8 +20,6 @@ const quizData = [
         answer: "Pecuária"
     }
 ];
-
-let currentQuestionIndex = 0;
 
 function loadQuiz() {
     const quizContainer = document.getElementById('quiz-container');
