@@ -64,3 +64,4 @@ function displayResults(results) {
 }
 
 loadQuiz();
+
