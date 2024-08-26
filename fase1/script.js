@@ -1,20 +1,12 @@
 const words = [
-    "PLANICIE",   // Grande área plana com vegetação rasteira
-    "NANDU",      // Ave grande que não voa
-    "TUCO",       // Roedor pequeno encontrado nos Pampas
-    "GRAMINHA",   // Tipo de grama resistente ao fogo
-    "ARENOSO",    // Solo característico dos Pampas
-    "PARANA",     // Rio importante que atravessa o bioma Pampas
-    "PASTAGEM",   // Planta usada como pastagem no bioma
-    "OMBU",       // Árvore típica dos Pampas
-    "PAMPAS",     // Região onde o bioma Pampas é predominante
-    "BARBASCO"    // Capim nativo utilizado na alimentação do gado
+    "PLANICIE", "NANDU", "TUCO", "GRAMINHA", "ARENOSO",
+    "PARANA", "PASTAGEM", "OMBU", "PAMPAS", "BARBASCO"
 ];
 
 const correctWords = new Set(words);
 const gridSize = 10;
 let selectedCells = [];
-let foundWords = new Set();  // Para armazenar palavras encontradas
+let foundWords = new Set();
 
 const wordsearch = document.getElementById('wordsearch');
 
@@ -45,70 +37,8 @@ function fillGrid() {
 }
 
 function placeWordInGrid(word) {
-    const direction = Math.floor(Math.random() * 3); // 0: horizontal, 1: vertical, 2: diagonal
+    const direction = Math.floor(Math.random() * 3);
     let startRow, startCol;
 
     switch(direction) {
-        case 0: // Horizontal
-            startRow = Math.floor(Math.random() * gridSize);
-            startCol = Math.floor(Math.random() * (gridSize - word.length));
-            for (let i = 0; i < word.length; i++) {
-                const cell = document.querySelector(`.cell[data-row='${startRow}'][data-col='${startCol + i}']`);
-                cell.textContent = word[i];
-                cell.dataset.word = word; // Marcar a célula com a palavra
-            }
-            break;
-        case 1: // Vertical
-            startRow = Math.floor(Math.random() * (gridSize - word.length));
-            startCol = Math.floor(Math.random() * gridSize);
-            for (let i = 0; i < word.length; i++) {
-                const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol}']`);
-                cell.textContent = word[i];
-                cell.dataset.word = word; // Marcar a célula com a palavra
-            }
-            break;
-        case 2: // Diagonal
-            startRow = Math.floor(Math.random() * (gridSize - word.length));
-            startCol = Math.floor(Math.random() * (gridSize - word.length));
-            for (let i = 0; i < word.length; i++) {
-                const cell = document.querySelector(`.cell[data-row='${startRow + i}'][data-col='${startCol + i}']`);
-                cell.textContent = word[i];
-                cell.dataset.word = word; // Marcar a célula com a palavra
-            }
-            break;
-    }
-}
-
-function selectCell(cell) {
-    if (!cell.classList.contains('selected')) {
-        cell.classList.add('selected');
-        selectedCells.push(cell);
-    } else {
-        cell.classList.remove('selected');
-        selectedCells = selectedCells.filter(c => c !== cell);
-    }
-}
-
-function checkWords() {
-    const selectedWord = selectedCells.map(cell => cell.textContent).join('');
-    const result = document.getElementById('result');
-
-    if (correctWords.has(selectedWord)) {
-        result.textContent = `Parabéns! Você encontrou uma característica do bioma Pampas: ${selectedWord}!`;
-        disableWordCells(selectedWord); // Desativar células da palavra encontrada
-        foundWords.add(selectedWord); // Adicionar palavra ao conjunto de encontradas
-        selectedCells = []; // Limpar seleção após acerto
-    } else {
-        result.textContent = 'Palavra incorreta. Tente novamente.';
-    }
-}
-
-function disableWordCells(word) {
-    document.querySelectorAll(`.cell[data-word='${word}']`).forEach(cell => {
-        cell.classList.add('found'); // Adicionar classe para indicar que a palavra foi encontrada
-        cell.removeEventListener('click', () => selectCell(cell)); // Remover o evento de clique
-        cell.style.backgroundColor = '#28a745'; // Alterar a cor de fundo para indicar que a palavra foi encontrada
-    });
-}
-
-createGrid();
+  
