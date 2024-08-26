@@ -8,7 +8,9 @@ body {
     text-align: center;
     padding: 50px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden; /* Impede rolagem horizontal */
+    min-height: 100vh; /* Garante que o body tenha pelo menos a altura da tela */
+    box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
 }
 
 h1 {
@@ -91,4 +93,3 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: inline-block;
 }
-
