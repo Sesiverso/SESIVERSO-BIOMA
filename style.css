@@ -4,7 +4,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Para evitar scroll causado pela animação das plantas */
+    overflow-x: hidden; /* Permite rolagem vertical, mas impede rolagem horizontal */
 }
 
 .content {
