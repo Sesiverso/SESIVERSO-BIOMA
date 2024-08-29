@@ -1,61 +1,64 @@
 body {
-    font-family: 'Display', Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Poppins', Arial, sans-serif; /* Atualização para uma fonte mais moderna */
+    background-color: #e3f2fd; /* Cor de fundo mais suave */
     color: #333;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Permite rolagem vertical, mas impede rolagem horizontal */
+    overflow-x: hidden; /* Impede rolagem horizontal */
 }
 
 .content {
-    min-height: 100vh; /* Garante que a área de conteúdo ocupe pelo menos a altura da tela */
+    min-height: 100vh; 
     padding: 50px;
-    box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
-    overflow-y: auto; /* Permite rolagem vertical */
-    position: relative; /* Para garantir que o conteúdo não se sobreponha às plantas */
+    box-sizing: border-box;
+    overflow-y: auto;
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Adiciona sombra ao conteúdo */
 }
 
 h1 {
-    color: #0066cc;
-    font-size: 4em; /* Texto grande e chamativo */
-    text-shadow: 3px 3px #aaa;
+    color: #007bff;
+    font-size: 3em;
+    text-shadow: 2px 2px 5px #aaa;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 #fases {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout responsivo em grid */
+    gap: 20px;
     margin-top: 50px;
 }
 
 button {
-    padding: 20px 40px;
-    font-size: 22px;
-    font-family: 'Display', Arial, sans-serif;
+    padding: 20px 30px;
+    font-size: 18px;
+    font-family: 'Poppins', Arial, sans-serif;
     font-weight: bold;
     cursor: pointer;
     border: none;
-    border-radius: 10px;
-    background-color: #28a745;
+    border-radius: 15px;
+    background-color: #007bff;
     color: white;
     transition: all 0.3s;
-    box-shadow: 0 5px #1c7430, 0 8px 15px rgba(0, 0, 0, 0.1);
-    text-transform: uppercase;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px #0056b3, 0 8px 15px rgba(0, 0, 0, 0.1);
     position: relative;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 button:active {
-    box-shadow: 0 3px #1c7430;
+    box-shadow: 0 3px #0056b3;
     transform: translateY(2px);
 }
 
-button.enabled:hover {
-    background-color: #218838;
+button:hover {
+    background-color: #0056b3;
     transform: translateY(-3px);
-    box-shadow: 0 8px #1c7430, 0 12px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px #0056b3, 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
 button.disabled {
@@ -69,14 +72,14 @@ button.disabled {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* As plantas não interferem no clique dos botões */
+    pointer-events: none;
 }
 
 .plant {
     position: absolute;
     bottom: 0;
     width: 20%;
-    opacity: 0.8;
+    opacity: 0.6; /* Reduzindo a opacidade para um design mais suave */
     animation: sway 5s infinite ease-in-out;
 }
 
@@ -87,7 +90,7 @@ button.disabled {
 
 .plant.right {
     right: 0;
-    animation-delay: 2.5s; /* Para que as plantas não balancem ao mesmo tempo */
+    animation-delay: 2.5s;
 }
 
 @keyframes sway {
@@ -95,15 +98,16 @@ button.disabled {
         transform: translateX(0) rotate(0deg);
     }
     50% {
-        transform: translateX(10px) rotate(3deg); /* Efeito de balanço */
+        transform: translateX(10px) rotate(3deg);
     }
 }
 
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #eee;
+    background-color: #f8f9fa;
     border-top: 1px solid #ccc;
     position: relative;
-    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 20px 20px;
 }
