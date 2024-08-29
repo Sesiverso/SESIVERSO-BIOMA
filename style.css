@@ -1,62 +1,69 @@
 body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background-color: #e3f2fd;
+    font-family: 'Display', Arial, sans-serif;
+    background-color: #f0f0f0;
     color: #333;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow: auto; /* Permite rolagem em todas as direções */
 }
 
 .content {
-    min-height: 100vh;
+    min-height: 100vh; /* Garante que a área de conteúdo ocupe pelo menos a altura da tela */
     padding: 50px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    position: relative;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Inclui padding e bordas no tamanho total do elemento */
+    position: relative; /* Para garantir que o conteúdo não se sobreponha às plantas */
 }
 
 h1 {
-    color: #007bff;
-    font-size: 3em;
-    text-shadow: 2px 2px 5px #aaa;
+    color: #0066cc;
+    font-size: 4em; /* Texto grande e chamativo */
+    text-shadow: 3px 3px #aaa;
     margin-bottom: 20px;
-    text-align: center;
 }
 
 #fases {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas para layout 2x2 */
-    grid-auto-rows: 1fr; /* Filas automáticas que mantêm o layout quadrado */
-    gap: 20px; /* Espaçamento entre os botões */
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+    gap: 15px;
     margin-top: 50px;
 }
 
 button {
-    background: #007bff;
+    background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 15px;
-    padding: 0;
-    width: 100%;
-    aspect-ratio: 1; /* Torna os botões quadrados */
-    text-align: center;
-    font-size: 2em;
-    font-weight: bold;
-    text-transform: uppercase;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    font-size: 22px;
+    font-family: 'Display', Arial, sans-serif;
+    font-weight: bold;
+    padding: 0; /* Removido para garantir a quadratura */
+    width: 100%;
+    aspect-ratio: 1; /* Garante que os botões sejam quadrados */
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px #1c7430, 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-button:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+button:active {
+    box-shadow: 0 3px #1c7430;
+    transform: translateY(2px);
+}
+
+button.enabled:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+    box-shadow: 0 8px #1c7430, 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 #plants-container {
@@ -65,14 +72,14 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    pointer-events: none; /* As plantas não interferem no clique dos botões */
 }
 
 .plant {
     position: absolute;
     bottom: 0;
     width: 20%;
-    opacity: 0.6;
+    opacity: 0.8;
     animation: sway 5s infinite ease-in-out;
 }
 
@@ -98,9 +105,8 @@ button:hover {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: #eee;
     border-top: 1px solid #ccc;
     position: relative;
-    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 20px 20px;
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.3);
 }
