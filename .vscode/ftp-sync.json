@@ -1,0 +1,27 @@
+{
+    "remotePath": "/public",
+    "host": "kamino06.umbler.net",
+    "username": "sesiverso-lgcodes-com-br",
+    "password": "Ggo!-%1C[jk*j@t",
+    "port": 21,
+    "secure": true,
+    "protocol": "ftps",
+    "uploadOnSave": false,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "passphrase": null,
+    "agent": null,
+    "allow": [],
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "extensionsToInclude": [
+            ""
+        ],
+        "path": ""
+    }
+}
